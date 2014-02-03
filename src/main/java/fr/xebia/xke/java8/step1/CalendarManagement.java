@@ -1,8 +1,7 @@
-package fr.xebia.xke.java8.step3;
+package fr.xebia.xke.java8.step1;
 
 import fr.xebia.xke.java8.domain.Appointment;
 import fr.xebia.xke.java8.domain.MyCalendar;
-import fr.xebia.xke.java8.step2.DateUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

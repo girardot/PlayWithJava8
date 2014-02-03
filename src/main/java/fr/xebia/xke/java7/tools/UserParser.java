@@ -1,7 +1,7 @@
 package fr.xebia.xke.java7.tools;
 
 import fr.xebia.xke.java7.domain.User;
-import fr.xebia.xke.java7.step2.DateUtils;
+import fr.xebia.xke.java7.step1.DateUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

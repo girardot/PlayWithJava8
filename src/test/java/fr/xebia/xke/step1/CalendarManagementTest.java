@@ -1,8 +1,8 @@
-package fr.xebia.xke.step3;
+package fr.xebia.xke.step1;
 
 import fr.xebia.xke.java7.domain.Appointment;
-import fr.xebia.xke.java7.step2.DateUtils;
-import fr.xebia.xke.java7.step3.CalendarManagement;
+import fr.xebia.xke.java7.step1.CalendarManagement;
+import fr.xebia.xke.java7.step1.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,13 +15,13 @@ public class CalendarManagementTest {
 
     private CalendarManagement calendarManagement;
 
-    private fr.xebia.xke.java8.step3.CalendarManagement calendarManagementJava8;
+    private fr.xebia.xke.java8.step1.CalendarManagement calendarManagementJava8;
 
     @Before
     public void setUp() {
         calendarManagement = new CalendarManagement();
 
-        calendarManagementJava8 = new fr.xebia.xke.java8.step3.CalendarManagement();
+        calendarManagementJava8 = new fr.xebia.xke.java8.step1.CalendarManagement();
     }
 
     @Test
@@ -110,7 +110,7 @@ public class CalendarManagementTest {
         assertThat(appointmentBetween).hasSize(2);
 
         assertThat(calendarManagement.findAppointmentOfDay(DateUtils.parseDate("2014-01-03")))
-                .is(equivalentAs(calendarManagementJava8.findAppointmentOfDay(fr.xebia.xke.java8.step2.DateUtils.parseDate("2014-01-03"))));
+                .is(equivalentAs(calendarManagementJava8.findAppointmentOfDay(fr.xebia.xke.java8.step1.DateUtils.parseDate("2014-01-03"))));
     }
 
     @Test
@@ -122,7 +122,7 @@ public class CalendarManagementTest {
         assertThat(appointment.toString()).isEqualTo("Appointment{start=05/01/2014 01:05:00, end=05/01/2014 01:35:00, title='sujet', description='description', allTheDay='false'}");
 
         assertThat(calendarManagement.findNextAppointmentAfter(DateUtils.parseDateTime("2014-01-04T19:05:00.")))
-                .is(equivalentAs(calendarManagementJava8.findNextAppointmentAfter(fr.xebia.xke.java8.step2.DateUtils.parseDateTime("2014-01-04T19:05:00."))));
+                .is(equivalentAs(calendarManagementJava8.findNextAppointmentAfter(fr.xebia.xke.java8.step1.DateUtils.parseDateTime("2014-01-04T19:05:00."))));
     }
 
     private void addDataSet() {

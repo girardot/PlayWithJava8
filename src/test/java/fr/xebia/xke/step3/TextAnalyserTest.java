@@ -1,6 +1,6 @@
-package fr.xebia.xke.step1;
+package fr.xebia.xke.step3;
 
-import fr.xebia.xke.java8.step1.TextAnalyser;
+import fr.xebia.xke.java8.step3.TextAnalyser;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -9,7 +9,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public class TextAnalyserTest {
 
-    fr.xebia.xke.java7.step1.TextAnalyser textAnalyserJava7 = new fr.xebia.xke.java7.step1.TextAnalyser("src/main/resources/le corbeau et le renard.txt");
+    fr.xebia.xke.java7.step3.TextAnalyser textAnalyserJava7 = new fr.xebia.xke.java7.step3.TextAnalyser("src/main/resources/le corbeau et le renard.txt");
     TextAnalyser textAnalyserJava8 = new TextAnalyser("src/main/resources/le corbeau et le renard.txt");
 
     @Test

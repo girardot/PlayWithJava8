@@ -1,4 +1,4 @@
-package fr.xebia.xke.java8.step2;
+package fr.xebia.xke.java8.step1;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,6 +1,7 @@
 package fr.xebia.xke.java7.step2;
 
 import fr.xebia.xke.java7.domain.User;
+import fr.xebia.xke.java7.step1.DateUtils;
 import fr.xebia.xke.java7.tools.UserParser;
 
 import java.util.*;
