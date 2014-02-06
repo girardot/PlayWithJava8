@@ -7,9 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 
+import static fr.xebia.xke.test.Conditions.equivalentAs;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class DateUtilsValidationTest {
@@ -21,9 +21,7 @@ public class DateUtilsValidationTest {
         Date date = DateUtils.parseDateTime(dateTimeToParse);
         LocalDateTime localDateTime = fr.xebia.xke.java8.step1.DateUtils.parseDateTime(dateTimeToParse);
 
-        LocalDateTime localDateTimeFromDate = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-
-        assertThat(localDateTime).isEqualTo(localDateTimeFromDate);
+        assertThat(date).is(equivalentAs(localDateTime));
 
     }
 
@@ -33,9 +31,7 @@ public class DateUtilsValidationTest {
         Date date = DateUtils.parseDate(dateToParse);
         LocalDate localDate = fr.xebia.xke.java8.step1.DateUtils.parseDate(dateToParse);
 
-        LocalDate localDateFromDate = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalDate();
-
-        assertThat(localDate).isEqualTo(localDateFromDate);
+        assertThat(date).is(equivalentAs(localDate));
     }
 
 
@@ -56,9 +52,16 @@ public class DateUtilsValidationTest {
 
         LocalDateTime localDateTime = fr.xebia.xke.java8.step1.DateUtils.dayDateWithTime(fr.xebia.xke.java8.step1.DateUtils.parseDate(date), 15, 12, 3);
 
-        LocalDateTime localDateFromDate = LocalDateTime.ofInstant(dateWithTime.toInstant(), ZoneId.systemDefault());
+        assertThat(dateWithTime).is(equivalentAs(localDateTime));
+    }
 
-        assertThat(localDateTime).isEqualTo(localDateFromDate);
+    @Test
+    public void should_add_duration() {
+        String firstDate = "2014-01-27T12:05:10.";
+        Date date = DateUtils.addDuration(DateUtils.parseDateTime(firstDate), 162);
+        LocalDateTime localDateTime = fr.xebia.xke.java8.step1.DateUtils.addDuration(fr.xebia.xke.java8.step1.DateUtils.parseDateTime(firstDate), 162);
+
+        assertThat(date).is(equivalentAs(localDateTime));
     }
 
 }

@@ -42,4 +42,20 @@ public class DateUtilsTest {
         assertThat(dateWithTime).isWithinMinute(12);
         assertThat(dateWithTime).isWithinSecond(3);
     }
+
+    @Test
+    public void should_add_duration() {
+        Date date = DateUtils.addDuration(DateUtils.parseDateTime("2014-01-27T12:05:10."), 162);
+
+        assertThat(date).isInSameDayAs("2014-01-27");
+        assertThat(date).isWithinHourOfDay(14);
+        assertThat(date).isWithinMinute(47);
+        assertThat(date).isWithinSecond(10);
+    }
+
+    @Test
+    public void should_return_true_with_same_day_date() {
+        assertThat(DateUtils.dayAreEquals(DateUtils.parseDateTime("2014-01-27T12:05:10."), DateUtils.parseDateTime("2014-01-27T20:05:10."))).isTrue();
+        assertThat(DateUtils.dayAreEquals(DateUtils.parseDateTime("2014-01-27T12:05:10."), DateUtils.parseDateTime("2014-01-28T12:05:10."))).isFalse();
+    }
 }
