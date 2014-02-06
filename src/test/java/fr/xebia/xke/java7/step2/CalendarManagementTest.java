@@ -1,4 +1,4 @@
-package fr.xebia.xke.java7.step1;
+package fr.xebia.xke.java7.step2;
 
 import fr.xebia.xke.java7.domain.Appointment;
 import org.junit.Before;

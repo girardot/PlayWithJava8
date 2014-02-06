@@ -1,4 +1,4 @@
-package fr.xebia.xke.java7.step2;
+package fr.xebia.xke.java7.step3;
 
 import fr.xebia.xke.java7.domain.User;
 import fr.xebia.xke.java7.step1.DateUtils;

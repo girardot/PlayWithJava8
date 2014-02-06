@@ -1,4 +1,4 @@
-package fr.xebia.xke.java7.step3;
+package fr.xebia.xke.java7.step4;
 
 import java.io.File;
 import java.io.IOException;

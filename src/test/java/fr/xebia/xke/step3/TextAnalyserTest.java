@@ -9,7 +9,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 public class TextAnalyserTest {
 
-    fr.xebia.xke.java7.step3.TextAnalyser textAnalyserJava7 = new fr.xebia.xke.java7.step3.TextAnalyser("src/main/resources/le corbeau et le renard.txt");
+    fr.xebia.xke.java7.step4.TextAnalyser textAnalyserJava7 = new fr.xebia.xke.java7.step4.TextAnalyser("src/main/resources/le corbeau et le renard.txt");
     TextAnalyser textAnalyserJava8 = new TextAnalyser("src/main/resources/le corbeau et le renard.txt");
 
     @Test
