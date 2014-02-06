@@ -24,22 +24,11 @@ public class CalendarManagement {
     public String createAppointmentForDay(String date, String title, String description) {
         Date dayDate = DateUtils.parseDate(date);
 
-        Appointment appointment = createAppointment(title, description, updateDateWithTime(dayDate, 0, 0, 0), updateDateWithTime(dayDate, 23, 59, 59));
+        Appointment appointment = createAppointment(title, description, DateUtils.dayDateWithTime(dayDate, 0, 0, 0), DateUtils.dayDateWithTime(dayDate, 23, 59, 59));
         appointment.setAllTheDay(true);
 
         return appointment.getId();
 
-    }
-
-    private Date updateDateWithTime(Date dayDate, int hour, int minute, int second) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dayDate);
-
-        calendar.set(Calendar.HOUR, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, second);
-
-        return calendar.getTime();
     }
 
     public List<Appointment> findAppointmentOfDay(Date day) {

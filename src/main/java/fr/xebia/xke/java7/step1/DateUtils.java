@@ -12,7 +12,7 @@ public class DateUtils {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
             return format.parse(date);
         } catch (ParseException e) {
-            return null;
+            throw new IllegalArgumentException("bad format " + date);
         }
     }
 
@@ -21,7 +21,7 @@ public class DateUtils {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             return format.parse(date);
         } catch (ParseException e) {
-            return null;
+            throw new IllegalArgumentException("bad format " + date);
         }
     }
 
@@ -40,7 +40,7 @@ public class DateUtils {
         return age;
     }
 
-    public static Date dayDateWith(Date dayDate, int hour, int minute, int second) {
+    public static Date dayDateWithTime(Date dayDate, int hour, int minute, int second) {
         Calendar calendarDayDate = Calendar.getInstance();
         calendarDayDate.setTime(dayDate);
 

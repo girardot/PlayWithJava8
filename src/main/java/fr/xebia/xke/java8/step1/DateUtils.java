@@ -27,4 +27,8 @@ public class DateUtils {
     public static LocalDateTime addDuration(LocalDateTime date, int durationInMinute) {
         return date.plusMinutes(durationInMinute);
     }
+
+    public static LocalDateTime dayDateWithTime(LocalDate day, int hour, int minute, int second) {
+        return day.atTime(hour, minute, second);
+    }
 }
