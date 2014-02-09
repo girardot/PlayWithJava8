@@ -1,4 +1,4 @@
-package fr.xebia.xke.java8.step2;
+package fr.xebia.xke.java8.step3;
 
 import fr.xebia.xke.java8.domain.User;
 import fr.xebia.xke.java8.tools.UserParser;

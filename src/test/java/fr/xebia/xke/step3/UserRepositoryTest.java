@@ -1,13 +1,13 @@
-package fr.xebia.xke.step2;
+package fr.xebia.xke.step3;
 
-import fr.xebia.xke.java8.step2.UserRepository;
+import fr.xebia.xke.java8.step3.UserRepository;
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class UserRepositoryTest {
 
-    fr.xebia.xke.java7.step2.UserRepository userRepositoryJava7 = new fr.xebia.xke.java7.step2.UserRepository();
+    fr.xebia.xke.java7.step3.UserRepository userRepositoryJava7 = new fr.xebia.xke.java7.step3.UserRepository();
     UserRepository userRepositoryJava8 = new UserRepository();
 
     @Test
@@ -41,7 +41,7 @@ public class UserRepositoryTest {
 
     }
 
-    private void removePasswordOfFirstUser(fr.xebia.xke.java7.step2.UserRepository userRepositoryJava7, UserRepository userRepositoryJava8) {
+    private void removePasswordOfFirstUser(fr.xebia.xke.java7.step3.UserRepository userRepositoryJava7, UserRepository userRepositoryJava8) {
         userRepositoryJava7.findAll().get(0).password = null;
         userRepositoryJava8.findAll().get(0).password = null;
 

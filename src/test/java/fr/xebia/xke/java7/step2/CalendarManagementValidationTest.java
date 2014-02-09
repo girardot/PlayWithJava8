@@ -14,13 +14,13 @@ public class CalendarManagementValidationTest {
 
     private CalendarManagement calendarManagement;
 
-    private fr.xebia.xke.java8.step1.CalendarManagement calendarManagementJava8;
+    private fr.xebia.xke.java8.step2.CalendarManagement calendarManagementJava8;
 
     @Before
     public void setUp() {
         calendarManagement = new CalendarManagement();
 
-        calendarManagementJava8 = new fr.xebia.xke.java8.step1.CalendarManagement();
+        calendarManagementJava8 = new fr.xebia.xke.java8.step2.CalendarManagement();
     }
 
     @Test

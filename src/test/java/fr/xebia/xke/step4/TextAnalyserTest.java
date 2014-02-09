@@ -1,6 +1,6 @@
-package fr.xebia.xke.step3;
+package fr.xebia.xke.step4;
 
-import fr.xebia.xke.java8.step3.TextAnalyser;
+import fr.xebia.xke.java8.step4.TextAnalyser;
 import org.junit.Test;
 
 import java.io.IOException;
