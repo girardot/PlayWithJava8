@@ -1,4 +1,4 @@
-package fr.xebia.xke.tools;
+package fr.xebia.xke.tools.java7;
 
 import fr.xebia.xke.java7.tools.UserParser;
 import org.junit.Test;
@@ -14,8 +14,7 @@ public class UserParserTest {
         List<fr.xebia.xke.java7.domain.User> users = UserParser.fromCsv("users.csv");
 
         assertThat(users).isNotEmpty();
-
-        users.forEach(u -> System.out.println("- " + u));
+        assertThat(users) .hasSize(1000);
 
     }
 }

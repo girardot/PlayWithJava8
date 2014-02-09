@@ -3,30 +3,36 @@ package fr.xebia.xke.java7.tools;
 import fr.xebia.xke.java7.domain.User;
 import fr.xebia.xke.java7.step1.DateUtils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class UserParser {
 
     public static List<User> fromCsv(String csvPath) {
-        try {
-            Stream<String> lines = Files.lines(getFileFromPath(csvPath));
-            return lines.skip(1).map(UserParser::lineToUser).collect(Collectors.toList());
-        } catch (IOException | URISyntaxException e) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(getFileFromPath(csvPath).toFile()))) {
+            String line;
+            boolean firstLine = true;
+            List<User> users = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+                if (!firstLine) {
+                    users.add(lineToUser(line));
+                }
+                firstLine = false;
+            }
+
+            return users;
+
+        } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
             return Collections.emptyList();
         }
-    }
-
-    private static Path getFileFromPath(String csvPath) throws URISyntaxException {
-        return Paths.get(UserParser.class.getClassLoader().getResource(csvPath).toURI());
     }
 
     private static User lineToUser(String line) {
@@ -39,5 +45,9 @@ public class UserParser {
                 .withEndDate(DateUtils.parseDateTime(columns[6]));
 
         return user;
+    }
+
+    private static Path getFileFromPath(String csvPath) throws URISyntaxException {
+        return Paths.get(UserParser.class.getClassLoader().getResource(csvPath).toURI());
     }
 }
