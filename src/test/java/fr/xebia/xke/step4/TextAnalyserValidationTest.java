@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class TextAnalyserTest {
+public class TextAnalyserValidationTest {
 
     fr.xebia.xke.java7.step4.TextAnalyser textAnalyserJava7 = new fr.xebia.xke.java7.step4.TextAnalyser("src/main/resources/le corbeau et le renard.txt");
     TextAnalyser textAnalyserJava8 = new TextAnalyser("src/main/resources/le corbeau et le renard.txt");
@@ -20,7 +20,6 @@ public class TextAnalyserTest {
 
     @Test
     public void should_return_words_occurrence() throws IOException {
-        TextAnalyser textAnalyser = new TextAnalyser("src/main/resources/le corbeau et le renard.txt");
-        assertThat(textAnalyserJava7.wordOccurrence()).isEqualTo(textAnalyser.wordOccurrence());
+        assertThat(textAnalyserJava7.wordOccurrence()).isEqualTo(textAnalyserJava8.wordOccurrence());
     }
 }

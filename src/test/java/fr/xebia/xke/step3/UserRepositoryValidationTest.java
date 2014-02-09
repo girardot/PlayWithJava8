@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class UserRepositoryTest {
+public class UserRepositoryValidationTest {
 
     fr.xebia.xke.java7.step3.UserRepository userRepositoryJava7 = new fr.xebia.xke.java7.step3.UserRepository();
     UserRepository userRepositoryJava8 = new UserRepository();
