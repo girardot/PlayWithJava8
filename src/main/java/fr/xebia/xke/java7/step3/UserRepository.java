@@ -61,7 +61,7 @@ public class UserRepository {
         return activeUsers;
     }
 
-    public long averageAge() {
+    public int averageAge() {
         int sumOfAge = 0;
 
         Date now = new Date();

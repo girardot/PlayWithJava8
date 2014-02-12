@@ -1,5 +1,7 @@
 package fr.xebia.xke.java7.domain;
 
+import fr.xebia.xke.domain.Address;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,6 +20,11 @@ public class User {
     public Date endDate;
 
     public Date birthday;
+
+    public Address billingAddress;
+
+    public Address deliveryAddress;
+
 
     public User(String firstname, String lastname) {
         this.firstname = firstname;
@@ -61,6 +68,17 @@ public class User {
         return this;
     }
 
+    public User withBillingAddress(Address address) {
+        this.billingAddress = address;
+        return this;
+    }
+
+    public User withDeliveryAddress(Address address) {
+        this.deliveryAddress = address;
+        return this;
+    }
+
+
     @Override
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -72,6 +90,8 @@ public class User {
                 ", startDate=" + simpleDateFormat.format(startDate) +
                 ", endDate=" + simpleDateFormat.format(endDate) +
                 ", birthday=" + simpleDateFormat.format(birthday) +
+                ", billingAddress=" + billingAddress +
+                ", deliveryAddress=" + deliveryAddress +
                 '}';
     }
 }

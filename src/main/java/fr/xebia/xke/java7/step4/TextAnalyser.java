@@ -32,17 +32,17 @@ public class TextAnalyser {
 
     }
 
-    public Map<String, Integer> wordOccurrence() throws IOException {
+    public Map<String, Long> wordOccurrence() throws IOException {
         try (Scanner scanner = new Scanner(filePath)) {
             scanner.useDelimiter("[\\s\\n]");
 
-            Map<String, Integer> wordsOccurrence = new HashMap<>();
+            Map<String, Long> wordsOccurrence = new HashMap<>();
             while (scanner.hasNext()) {
                 String next = scanner.next().toLowerCase();
                 if (next.matches(REGEX_CHAR_ONLY)) {
-                    Integer count = wordsOccurrence.get(next);
+                    Long count = wordsOccurrence.get(next);
                     if (count == null) {
-                        wordsOccurrence.put(next, 1);
+                        wordsOccurrence.put(next, 1L);
                     } else {
                         wordsOccurrence.put(next, count + 1);
                     }

@@ -1,5 +1,6 @@
 package fr.xebia.xke.java8.tools;
 
+import fr.xebia.xke.domain.Address;
 import fr.xebia.xke.java8.domain.User;
 import fr.xebia.xke.java8.step1.DateUtils;
 
@@ -36,8 +37,15 @@ public class UserParser {
                 .withPassword(columns[3])
                 .withbirthday(DateUtils.parseDateTime(columns[4]).toLocalDate())
                 .withStartDate(DateUtils.parseDateTime(columns[5]).toLocalDate())
-                .withEndDate(DateUtils.parseDateTime(columns[6]).toLocalDate());
+                .withEndDate(DateUtils.parseDateTime(columns[6]).toLocalDate())
+                .withBillingAddress(new Address(columns[7], columns[8], columns[9]))
+        ;
+
+        if (columns.length >= 13) {
+            user.withDeliveryAddress(new Address(columns[10], columns[11], columns[12]));
+        }
 
         return user;
     }
+
 }

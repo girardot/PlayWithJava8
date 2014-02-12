@@ -1,5 +1,7 @@
 package fr.xebia.xke.java8.domain;
 
+import fr.xebia.xke.domain.Address;
+
 import java.time.LocalDate;
 
 public class User {
@@ -17,6 +19,10 @@ public class User {
     public LocalDate endDate;
 
     public LocalDate birthday;
+
+    public Address billingAddress;
+
+    public Address deliveryAddress;
 
     public User(String firstname, String lastname) {
         this.firstname = firstname;
@@ -55,6 +61,16 @@ public class User {
         return this;
     }
 
+    public User withBillingAddress(Address address) {
+        this.billingAddress = address;
+        return this;
+    }
+
+    public User withDeliveryAddress(Address address) {
+        this.deliveryAddress = address;
+        return this;
+    }
+
     public User withEndDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
@@ -70,6 +86,8 @@ public class User {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", birthday=" + birthday +
+                ", billingAddress=" + billingAddress +
+                ", deliveryAddress=" + deliveryAddress +
                 '}';
     }
 }

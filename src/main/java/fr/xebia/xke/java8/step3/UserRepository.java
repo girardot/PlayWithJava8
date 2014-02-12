@@ -1,6 +1,7 @@
 package fr.xebia.xke.java8.step3;
 
 import fr.xebia.xke.java8.domain.User;
+import fr.xebia.xke.java8.step1.DateUtils;
 import fr.xebia.xke.java8.tools.UserParser;
 
 import java.time.LocalDate;
@@ -40,5 +41,11 @@ public class UserRepository {
 
     public List<User> findAll() {
         return users;
+    }
+
+    public int averageAge() {
+        return users.stream().
+                collect(Collectors.averagingInt(u -> DateUtils.age(u.birthday, LocalDate.now())))
+                .intValue();
     }
 }

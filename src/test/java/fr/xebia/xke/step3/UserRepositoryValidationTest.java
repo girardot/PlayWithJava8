@@ -37,8 +37,7 @@ public class UserRepositoryValidationTest {
 
     @Test
     public void should_return_age_average() {
-        System.out.println(userRepositoryJava7.averageAge());
-
+        assertThat(userRepositoryJava7.averageAge()).isEqualTo(userRepositoryJava8.averageAge());
     }
 
     private void removePasswordOfFirstUser(fr.xebia.xke.java7.step3.UserRepository userRepositoryJava7, UserRepository userRepositoryJava8) {

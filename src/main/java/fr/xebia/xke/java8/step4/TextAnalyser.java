@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,10 +27,10 @@ public class TextAnalyser {
                 collect(Collectors.toSet());
     }
 
-    public Map<String, Integer> wordOccurrence() throws IOException {
-        return Files.lines(filePath).map(line -> line.toLowerCase()).
+    public Map<String, Long> wordOccurrence() throws IOException {
+        return Files.lines(filePath).map(String::toLowerCase).
                 flatMap(line -> Stream.of(line.split(" ")).
                         filter(c -> c.matches(REGEX_CHAR_ONLY))).
-                collect(Collectors.groupingBy(c -> c, Collectors.reducing(0, c -> 1, Integer::sum)));
+                collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 }

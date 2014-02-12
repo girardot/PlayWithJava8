@@ -4,12 +4,12 @@
        xsi:schemaLocation="http://databene.org/benerator/0.8.1 http://databene.org/benerator-0.8.1.xsd">
 
     <import defaults="true"
-            domains="person" class="org.databene.commons.TimeUtil"
+            domains="person,address" class="org.databene.commons.TimeUtil"
             />
 
     <bean id="csvConsumer" class="CSVEntityExporter">
         <property name="uri" value="src/main/resources/users.csv"/>
-        <property name="columns" value="firstname,lastname,login,password,birthday,startDate,endDate"/>
+        <property name="columns" value="firstname,lastname,login,password,birthday,startDate,endDate,billingStreet,billingCity,billingPostalCode,deliveryStreet,deliveryCity,deliveryPostalCode"/>
     </bean>
 
     <bean id="dateGenerator" class="DateTimeGenerator">
@@ -34,6 +34,8 @@
 
     <generate type="User" pageSize="1000" count="1000" consumer="csvConsumer">
         <variable name="userInformation" generator="PersonGenerator" dataset="FR" locale="fr"/>
+        <variable name="billingAddress" generator="AddressGenerator" dataset="FR" locale="FR" nullQuota="0.05"/>
+        <variable name="deliveryAddress" generator="AddressGenerator" nullQuota="0.1" dataset="FR" locale="FR" />
         <attribute name="lastname" type="String" script="userInformation.familyName"/>
         <attribute name="firstname" type="String" script="userInformation.givenName"/>
         <variable name="firstnameFirstLetter" converter="firstLetterExtract"/>
@@ -44,6 +46,12 @@
         <attribute name="startDate" type="timestamp" generator="dateGenerator"/>
         <variable name="endDateIncrement" type="int" min="1" max="500"/>`
         <attribute name="endDate" type="timestamp" script="TimeUtil.addDays(this.startDate, endDateIncrement)"/>
+        <attribute name="billingStreet" type="string"  script="billingAddress.houseNumber+' '+billingAddress.street"/>
+        <attribute name="billingCity" type="string" script="billingAddress.city"/>
+        <attribute name="billingPostalCode" type="string" script="billingAddress.postalCode"/>
+        <attribute name="deliveryStreet" type="string"  script="deliveryAddress.houseNumber+' '+deliveryAddress.street"/>
+        <attribute name="deliveryCity" type="string" script="deliveryAddress.city"/>
+        <attribute name="deliveryPostalCode" type="string" script="deliveryAddress.postalCode"/>
     </generate>
 
 
