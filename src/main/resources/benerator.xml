@@ -34,7 +34,7 @@
 
     <generate type="User" pageSize="1000" count="1000" consumer="csvConsumer">
         <variable name="userInformation" generator="PersonGenerator" dataset="FR" locale="fr"/>
-        <variable name="billingAddress" generator="AddressGenerator" dataset="FR" locale="FR" nullQuota="0.05"/>
+        <variable name="billingAddress" generator="AddressGenerator" dataset="FR" locale="FR" />
         <variable name="deliveryAddress" generator="AddressGenerator" nullQuota="0.1" dataset="FR" locale="FR" />
         <attribute name="lastname" type="String" script="userInformation.familyName"/>
         <attribute name="firstname" type="String" script="userInformation.givenName"/>

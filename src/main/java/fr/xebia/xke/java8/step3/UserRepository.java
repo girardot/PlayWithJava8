@@ -1,11 +1,13 @@
 package fr.xebia.xke.java8.step3;
 
+import fr.xebia.xke.domain.Address;
 import fr.xebia.xke.java8.domain.User;
 import fr.xebia.xke.java8.step1.DateUtils;
 import fr.xebia.xke.java8.tools.UserParser;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserRepository {
@@ -39,13 +41,23 @@ public class UserRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<User> findAll() {
-        return users;
-    }
-
     public int averageAge() {
         return users.stream().
                 collect(Collectors.averagingInt(u -> DateUtils.age(u.birthday, LocalDate.now())))
                 .intValue();
+    }
+
+    public String adressForDelivery(User user) {
+        return Optional.ofNullable(user.deliveryAddress)
+                .map(address -> formatAddressForDelivery(user, address))
+                .orElse(formatAddressForDelivery(user, user.billingAddress));
+    }
+
+    public String formatAddressForDelivery(fr.xebia.xke.java8.domain.User user, Address address) {
+        return String.format("%s %s\n%s\n%s %s", user.firstname, user.lastname, address.street, address.postalCode, address.city);
+    }
+
+    public List<User> findAll() {
+        return users;
     }
 }

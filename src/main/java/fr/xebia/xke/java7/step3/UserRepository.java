@@ -1,5 +1,6 @@
 package fr.xebia.xke.java7.step3;
 
+import fr.xebia.xke.domain.Address;
 import fr.xebia.xke.java7.domain.User;
 import fr.xebia.xke.java7.step1.DateUtils;
 import fr.xebia.xke.java7.tools.UserParser;
@@ -71,6 +72,18 @@ public class UserRepository {
         }
 
         return sumOfAge / users.size();
+    }
+
+    public String adressForDelivery(User user) {
+        if (user.deliveryAddress != null) {
+            return formatAddressForDelivery(user, user.deliveryAddress);
+        } else {
+            return formatAddressForDelivery(user, user.billingAddress);
+        }
+    }
+
+    public String formatAddressForDelivery(User user, Address address) {
+        return String.format("%s %s\n%s\n%s %s", user.firstname, user.lastname, address.street, address.postalCode, address.city);
     }
 
     public List<User> findAll() {

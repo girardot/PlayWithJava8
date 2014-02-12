@@ -78,7 +78,6 @@ public class User {
         return this;
     }
 
-
     @Override
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

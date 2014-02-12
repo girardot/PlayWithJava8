@@ -1,6 +1,8 @@
 package fr.xebia.xke.step3;
 
+import fr.xebia.xke.java7.domain.User;
 import fr.xebia.xke.java8.step3.UserRepository;
+import fr.xebia.xke.test.Conditions;
 import org.junit.Test;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -38,6 +40,21 @@ public class UserRepositoryValidationTest {
     @Test
     public void should_return_age_average() {
         assertThat(userRepositoryJava7.averageAge()).isEqualTo(userRepositoryJava8.averageAge());
+    }
+
+    @Test
+    public void should_return_formated_address_for_delivery() {
+        User user7WithoutDeliveryAddress = userRepositoryJava7.findAll().stream().sorted((x, y) -> (x.firstname.compareTo(y.firstname))).filter(u -> u.deliveryAddress == null).findFirst().get();
+        fr.xebia.xke.java8.domain.User user8WithoutDeliveryAddress = userRepositoryJava8.findAll().stream().sorted((x, y) -> (x.firstname.compareTo(y.firstname))).filter(u -> u.deliveryAddress == null).findFirst().get();
+        User user7WithDeliveryAddress = userRepositoryJava7.findAll().stream().sorted((x, y) -> (x.firstname.compareTo(y.firstname))).filter(u -> u.deliveryAddress != null).findFirst().get();
+        fr.xebia.xke.java8.domain.User user8WithDeliveryAddress = userRepositoryJava8.findAll().stream().sorted((x, y) -> (x.firstname.compareTo(y.firstname))).filter(u -> u.deliveryAddress != null).findFirst().get();
+
+        assertThat(user7WithoutDeliveryAddress).is(Conditions.equivalentAs(user8WithoutDeliveryAddress));
+        assertThat(user7WithDeliveryAddress).is(Conditions.equivalentAs(user8WithDeliveryAddress));
+
+        assertThat(userRepositoryJava7.adressForDelivery(user7WithoutDeliveryAddress)).isEqualTo(userRepositoryJava8.adressForDelivery(user8WithoutDeliveryAddress));
+        assertThat(userRepositoryJava7.adressForDelivery(user7WithDeliveryAddress)).isEqualTo(userRepositoryJava8.adressForDelivery(user8WithDeliveryAddress));
+
     }
 
     private void removePasswordOfFirstUser(fr.xebia.xke.java7.step3.UserRepository userRepositoryJava7, UserRepository userRepositoryJava8) {

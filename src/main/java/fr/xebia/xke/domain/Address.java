@@ -12,6 +12,10 @@ public class Address {
         this.postalCode = postalCode;
     }
 
+    public String asString() {
+        return street + "\n" + city + " " + postalCode;
+    }
+
     @Override
     public String toString() {
         return "Address{" +

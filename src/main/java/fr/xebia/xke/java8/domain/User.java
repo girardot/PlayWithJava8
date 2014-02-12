@@ -3,6 +3,7 @@ package fr.xebia.xke.java8.domain;
 import fr.xebia.xke.domain.Address;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class User {
 
