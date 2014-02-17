@@ -20,11 +20,12 @@ public class TextAnalyser {
     }
 
     public Set<String> words() throws IOException {
-        Stream<String> lines = Files.lines(filePath);
-        return lines.map(line -> line.toLowerCase()).
-                flatMap(line -> Stream.of(line.split(" ")).
-                        filter(c -> c.matches(REGEX_CHAR_ONLY))).
-                collect(Collectors.toSet());
+        try (Stream<String> lines = Files.lines(filePath)) {
+            return lines.map(line -> line.toLowerCase()).
+                    flatMap(line -> Stream.of(line.split(" ")).
+                            filter(c -> c.matches(REGEX_CHAR_ONLY))).
+                    collect(Collectors.toSet());
+        }
     }
 
     public Map<String, Long> wordOccurrence() throws IOException {
