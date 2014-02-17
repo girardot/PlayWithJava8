@@ -2,23 +2,26 @@ package fr.xebia.xke.step1;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
+
+    private static final DateTimeFormatter DATE_PARSER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    private static final DateTimeFormatter DATE_TIME_PARSER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.");
 
     /**
      * Parse String date without times
      * @param date
      * @return
      */
-    public static Date parseDate(String date) {
-        try {  //SimpleDateFormat not thread safe must create new formater for each request
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            return format.parse(date);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("bad format " + date);
-        }
+    public static LocalDateTime parseDateTime(String date) {
+        return LocalDateTime.parse(date, DATE_TIME_PARSER);
     }
 
     /**
@@ -26,59 +29,19 @@ public class DateUtils {
      * @param date
      * @return
      */
-    public static Date parseDateTime(String date) {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
-            return format.parse(date);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("bad format " + date);
-        }
+    public static LocalDate parseDate(String date) {
+        return LocalDate.parse(date, DATE_PARSER);
     }
 
-
-    public static int age(Date birthday, Date now) {
-        Calendar calBirthday = Calendar.getInstance();
-        calBirthday.setTime(birthday);
-
-        Calendar calNow = Calendar.getInstance();
-        calNow.setTime(now);
-
-        int age = calNow.get(Calendar.YEAR) - calBirthday.get(Calendar.YEAR);
-        if (calNow.get(Calendar.DAY_OF_YEAR) < calBirthday.get(Calendar.DAY_OF_YEAR)) {
-            age--;
-        }
-
-        return age;
+    public static int age(LocalDate birthday, LocalDate now) {
+        return Period.between(birthday, now).getYears();
     }
 
-    public static Date dayDateWithTime(Date dayDate, int hour, int minute, int second) {
-        Calendar calendarDayDate = Calendar.getInstance();
-        calendarDayDate.setTime(dayDate);
-
-        calendarDayDate.set(Calendar.HOUR, hour);
-        calendarDayDate.set(Calendar.MINUTE, minute);
-        calendarDayDate.set(Calendar.SECOND, second);
-
-        return calendarDayDate.getTime();
+    public static LocalDateTime addDuration(LocalDateTime date, int durationInMinute) {
+        return date.plusMinutes(durationInMinute);
     }
 
-    public static Date addDuration(Date date, int minute) {
-        Calendar calendarDate = Calendar.getInstance();
-        calendarDate.setTime(date);
-
-        calendarDate.add(Calendar.MINUTE, minute);
-
-        return calendarDate.getTime();
-    }
-
-    public static boolean dayAreEquals(Date date1, Date date2) {
-        Calendar calendarDay1 = Calendar.getInstance();
-        calendarDay1.setTime(date1);
-
-        Calendar calendarDay2 = Calendar.getInstance();
-        calendarDay2.setTime(date2);
-
-        return calendarDay1.get(Calendar.YEAR) == calendarDay2.get(Calendar.YEAR) &&
-                calendarDay1.get(Calendar.DAY_OF_YEAR) == calendarDay2.get(Calendar.DAY_OF_YEAR);
+    public static LocalDateTime dayDateWithTime(LocalDate day, int hour, int minute, int second) {
+        return day.atTime(hour, minute, second);
     }
 }
