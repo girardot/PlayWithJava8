@@ -53,4 +53,14 @@ public class DateUtilsTest {
         assertThat(DateUtilsJava7.addDuration(DateUtilsJava7.parseDateTime(firstDate), 162)).is(equivalentAs(DateUtils.addDuration(DateUtils.parseDateTime(firstDate), 162)));
     }
 
+    @Test
+    public void should_return_true_when_days_are_equals() {
+
+        String firstDate = "2014-01-27T12:05:10.";
+        String secondDate = "2014-01-27T18:05:10.";
+        String thirdDate = "2014-01-28T18:05:10.";
+
+        assertThat(DateUtilsJava7.dayAreEquals(firstDate, secondDate)).isEqualTo(DateUtils.dayAreEquals(firstDate, secondDate));
+        assertThat(DateUtilsJava7.dayAreEquals(firstDate, thirdDate)).isEqualTo(DateUtils.dayAreEquals(firstDate, thirdDate));
+    }
 }

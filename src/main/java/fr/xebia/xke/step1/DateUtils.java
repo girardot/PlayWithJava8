@@ -1,13 +1,9 @@
 package fr.xebia.xke.step1;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 
 public class DateUtils {
 
@@ -17,7 +13,8 @@ public class DateUtils {
 
     /**
      * Parse String date without times
-     * @param date
+     *
+     * @param date format  yyyy-MM-dd
      * @return
      */
     public static LocalDateTime parseDateTime(String date) {
@@ -26,7 +23,8 @@ public class DateUtils {
 
     /**
      * parse String date with time
-     * @param date
+     *
+     * @param date format  yyyy-MM-dd'T'HH:mm:ss.
      * @return
      */
     public static LocalDate parseDate(String date) {
@@ -43,5 +41,18 @@ public class DateUtils {
 
     public static LocalDateTime dayDateWithTime(LocalDate day, int hour, int minute, int second) {
         return day.atTime(hour, minute, second);
+    }
+
+    /**
+     * @param firstDateWithTime  format  yyyy-MM-dd'T'HH:mm:ss.
+     * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss.
+     * @return
+     */
+    public static boolean dayAreEquals(String firstDateWithTime, String secondDateWithTime) {
+        LocalDateTime firstLocalDateTime = parseDateTime(firstDateWithTime);
+
+        LocalDateTime secondLocalDateTime = parseDateTime(secondDateWithTime);
+
+        return firstLocalDateTime.toLocalDate().equals(secondLocalDateTime.toLocalDate());
     }
 }
