@@ -9,7 +9,7 @@ public class DateUtils {
 
     /**
      * Parse String date without times
-     * @param date
+     * @param date format  yyyy-MM-dd
      * @return
      */
     public static Date parseDate(String date) {
@@ -23,7 +23,7 @@ public class DateUtils {
 
     /**
      * parse String date with time
-     * @param date
+     * @param date format  yyyy-MM-dd'T'HH:mm:ss.
      * @return
      */
     public static Date parseDateTime(String date) {
@@ -71,12 +71,18 @@ public class DateUtils {
         return calendarDate.getTime();
     }
 
-    public static boolean dayAreEquals(Date date1, Date date2) {
+    /**
+     *
+     * @param firstDateWithTime format  yyyy-MM-dd'T'HH:mm:ss.
+     * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss.
+     * @return
+     */
+    public static boolean dayAreEquals(String firstDateWithTime, String secondDateWithTime) {
         Calendar calendarDay1 = Calendar.getInstance();
-        calendarDay1.setTime(date1);
+        calendarDay1.setTime(parseDateTime(firstDateWithTime));
 
         Calendar calendarDay2 = Calendar.getInstance();
-        calendarDay2.setTime(date2);
+        calendarDay2.setTime(parseDateTime(secondDateWithTime));
 
         return calendarDay1.get(Calendar.YEAR) == calendarDay2.get(Calendar.YEAR) &&
                 calendarDay1.get(Calendar.DAY_OF_YEAR) == calendarDay2.get(Calendar.DAY_OF_YEAR);
