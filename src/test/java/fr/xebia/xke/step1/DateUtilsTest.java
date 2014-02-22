@@ -1,15 +1,12 @@
 package fr.xebia.xke.step1;
 
-import fr.xebia.xke.test.TemporalAccessorAssert;
-import org.fest.assertions.api.Assertions;
 import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-import static fr.xebia.xke.test.TemporalAccessorAssert.*;
-import static org.fest.assertions.api.Assertions.*;
+import static fr.xebia.xke.test.TemporalAccessorAssert.assertThat;
+import static org.fest.assertions.api.Assertions.assertThat;
 
 public class DateUtilsTest {
 
