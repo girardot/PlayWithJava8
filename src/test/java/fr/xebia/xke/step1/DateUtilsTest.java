@@ -37,6 +37,10 @@ public class DateUtilsTest {
         assertThat(computeAgeFor("2010-01-28", "2014-02-06")).isEqualTo(4);
     }
 
+    private int computeAgeFor(String birthday, String currentDate) {
+        return DateUtils.age(DateUtils.parseDate(birthday), DateUtils.parseDate(currentDate));
+    }
+
     @Test
     public void should_compute_day_with_time() {
         LocalDate day = DateUtils.parseDate("2013-07-08");
@@ -70,9 +74,5 @@ public class DateUtilsTest {
 
         assertThat(date).isEqualTo("2014-01-18T03:00:00.");
 
-    }
-
-    private int computeAgeFor(String birthday, String currentDate) {
-        return DateUtils.age(DateUtils.parseDate(birthday), DateUtils.parseDate(currentDate));
     }
 }
