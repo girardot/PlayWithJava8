@@ -1,8 +1,6 @@
 package fr.xebia.xke.step1;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class DateUtils {
@@ -45,6 +43,7 @@ public class DateUtils {
 
     /**
      * @param firstDateWithTime  format  yyyy-MM-dd'T'HH:mm:ss.
+     * @param firstDateWithTime  format  yyyy-MM-dd'T'HH:mm:ss.
      * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss.
      * @return
      */
@@ -54,5 +53,11 @@ public class DateUtils {
         LocalDateTime secondLocalDateTime = parseDateTime(secondDateWithTime);
 
         return firstLocalDateTime.toLocalDate().equals(secondLocalDateTime.toLocalDate());
+
+    }
+
+    public static String convertToTimeZone(String dateWithTime, String timeZoneFrom, String timeZoneTo) {
+        ZonedDateTime zoneDateTime = parseDateTime(dateWithTime).atZone(ZoneId.of(timeZoneFrom));
+        return zoneDateTime.withZoneSameInstant(ZoneId.of(timeZoneTo)).format(DATE_TIME_PARSER);
     }
 }

@@ -1,66 +1,78 @@
 package fr.xebia.xke.step1;
 
+import fr.xebia.xke.test.TemporalAccessorAssert;
+import org.fest.assertions.api.Assertions;
 import org.junit.Test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
-import static fr.xebia.xke.test.Conditions.equivalentAs;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static fr.xebia.xke.test.TemporalAccessorAssert.*;
+import static org.fest.assertions.api.Assertions.*;
 
 public class DateUtilsTest {
 
     @Test
     public void should_parse_date() {
-        String dateToParse = "2014-01-27";
+        LocalDate date = DateUtils.parseDate("2014-01-27");
 
-        assertThat(DateUtilsJava7.parseDate(dateToParse)).is(equivalentAs(DateUtils.parseDate(dateToParse)));
+        assertThat(date).isInSameDayAs("2014-01-27");
     }
 
     @Test
     public void should_parse_date_time() {
-        String dateTimeToParse = "2014-01-27T12:05:10.";
+        LocalDateTime date = DateUtils.parseDateTime("2014-01-27T12:05:10.");
 
-        assertThat(DateUtilsJava7.parseDateTime(dateTimeToParse)).is(equivalentAs(DateUtils.parseDateTime(dateTimeToParse)));
-
+        assertThat(date).isInSameDayAs("2014-01-27");
+        assertThat(date).isWithinHourOfDay(12);
+        assertThat(date).isWithinMinute(05);
+        assertThat(date).isWithinSecond(10);
     }
 
     @Test
-    public void should_compute_age() throws ParseException {
-        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
-
-        checkAgeMethod("2010-01-01", "2011-01-01");
-        checkAgeMethod("2010-01-01", "2011-12-31");
-        checkAgeMethod("2010-01-01", "2010-12-31");
-        checkAgeMethod("2010-01-01", "2011-05-12");
-    }
-
-    private void checkAgeMethod(String birthday, String now) {
-        assertThat(DateUtilsJava7.age(DateUtilsJava7.parseDate(birthday), DateUtilsJava7.parseDate(now))).isEqualTo(DateUtils.age(DateUtils.parseDate(birthday), DateUtils.parseDate(now)));
+    public void should_compute_age() {
+        assertThat(computeAgeFor("2013-07-08", "2014-02-06")).isEqualTo(0);
+        assertThat(computeAgeFor("2010-10-12", "2014-02-06")).isEqualTo(3);
+        assertThat(computeAgeFor("2010-01-28", "2014-02-06")).isEqualTo(4);
     }
 
     @Test
     public void should_compute_day_with_time() {
-        String date = "2013-07-08";
+        LocalDate day = DateUtils.parseDate("2013-07-08");
+        LocalDateTime dateWithTime = DateUtils.dayDateWithTime(day, 15, 12, 3);
 
-        assertThat(DateUtilsJava7.dayDateWithTime(DateUtilsJava7.parseDate(date), 15, 12, 3)).is(equivalentAs(DateUtils.dayDateWithTime(DateUtils.parseDate(date), 15, 12, 3)));
+        assertThat(dateWithTime).isInSameDayAs("2013-07-08");
+        assertThat(dateWithTime).isWithinHourOfDay(15);
+        assertThat(dateWithTime).isWithinMinute(12);
+        assertThat(dateWithTime).isWithinSecond(3);
     }
 
     @Test
     public void should_add_duration() {
-        String firstDate = "2014-01-27T12:05:10.";
+        LocalDateTime date = DateUtils.addDuration(DateUtils.parseDateTime("2014-01-27T12:05:10."), 162);
 
-        assertThat(DateUtilsJava7.addDuration(DateUtilsJava7.parseDateTime(firstDate), 162)).is(equivalentAs(DateUtils.addDuration(DateUtils.parseDateTime(firstDate), 162)));
+        assertThat(date).isInSameDayAs("2014-01-27");
+        assertThat(date).isWithinHourOfDay(14);
+        assertThat(date).isWithinMinute(47);
+        assertThat(date).isWithinSecond(10);
     }
 
     @Test
     public void should_return_true_when_days_are_equals() {
+        assertThat(DateUtils.dayAreEquals("2014-01-27T12:05:10.", "2014-01-27T20:05:10.")).isTrue();
+        assertThat(DateUtils.dayAreEquals("2014-01-27T12:05:10.", "2014-01-28T12:05:10.")).isFalse();
+    }
 
-        String firstDate = "2014-01-27T12:05:10.";
-        String secondDate = "2014-01-27T18:05:10.";
-        String thirdDate = "2014-01-28T18:05:10.";
+    @Test
+    public void should_convert_to_time_zone() {
+        String date = DateUtils.convertToTimeZone("2014-01-18T12:00:00.", "Europe/Moscow", "America/New_York");
 
-        assertThat(DateUtilsJava7.dayAreEquals(firstDate, secondDate)).isEqualTo(DateUtils.dayAreEquals(firstDate, secondDate));
-        assertThat(DateUtilsJava7.dayAreEquals(firstDate, thirdDate)).isEqualTo(DateUtils.dayAreEquals(firstDate, thirdDate));
+        assertThat(date).isEqualTo("2014-01-18T03:00:00.");
+
+    }
+
+    private int computeAgeFor(String birthday, String currentDate) {
+        return DateUtils.age(DateUtils.parseDate(birthday), DateUtils.parseDate(currentDate));
     }
 }
