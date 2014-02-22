@@ -4,11 +4,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateUtils {
 
     /**
      * Parse String date without times
+     *
      * @param date format  yyyy-MM-dd
      * @return
      */
@@ -23,6 +25,7 @@ public class DateUtils {
 
     /**
      * parse String date with time
+     *
      * @param date format  yyyy-MM-dd'T'HH:mm:ss.
      * @return
      */
@@ -72,8 +75,7 @@ public class DateUtils {
     }
 
     /**
-     *
-     * @param firstDateWithTime format  yyyy-MM-dd'T'HH:mm:ss.
+     * @param firstDateWithTime  format  yyyy-MM-dd'T'HH:mm:ss.
      * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss.
      * @return
      */
@@ -86,5 +88,23 @@ public class DateUtils {
 
         return calendarDay1.get(Calendar.YEAR) == calendarDay2.get(Calendar.YEAR) &&
                 calendarDay1.get(Calendar.DAY_OF_YEAR) == calendarDay2.get(Calendar.DAY_OF_YEAR);
+    }
+
+    public static String convertToTimeZone(String dateWithTime, String timeZoneFrom, String timeZoneTo) {
+
+        try {
+            SimpleDateFormat parserFrom = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
+            parserFrom.setTimeZone(TimeZone.getTimeZone(timeZoneFrom));
+
+            Date date = parserFrom.parse(dateWithTime);
+
+            SimpleDateFormat formatWithTimeZone = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
+            formatWithTimeZone.setTimeZone(TimeZone.getTimeZone(timeZoneTo));
+
+            return formatWithTimeZone.format(date);
+
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("bad format " + dateWithTime);
+        }
     }
 }
