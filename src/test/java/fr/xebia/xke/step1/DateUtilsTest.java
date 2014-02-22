@@ -2,8 +2,11 @@ package fr.xebia.xke.step1;
 
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import static fr.xebia.xke.test.TemporalAccessorAssert.assertThat;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class DateUtilsTest {
@@ -28,8 +31,8 @@ public class DateUtilsTest {
     @Test
     public void should_compute_age() {
         assertThat(computeAgeFor("2013-07-08", "2014-02-06")).isEqualTo(0);
-        assertThat(computeAgeFor("2010-10-12", "2014-02-06")).isEqualTo(0);
-        assertThat(computeAgeFor("2010-01-28", "2014-02-06")).isEqualTo(0);
+        assertThat(computeAgeFor("2010-10-12", "2014-02-06")).isEqualTo(3);
+        assertThat(computeAgeFor("2010-01-28", "2014-02-06")).isEqualTo(4);
     }
 
     private int computeAgeFor(String birthday, String currentDate) {
@@ -68,6 +71,12 @@ public class DateUtilsTest {
         String date = DateUtils.convertToTimeZone("2014-01-18T12:00:00.", "Europe/Moscow", "America/New_York");
 
         assertThat(date).isEqualTo("2014-01-18T03:00:00.");
+
+    }
+
+    @Test
+    public void fake_test() {
+        assertThat(LocalDate.now()).isInSameDayAs(LocalDate.now().format(DateTimeFormatter.ISO_DATE));
 
     }
 }
