@@ -16,9 +16,6 @@ public class User {
 
     public LocalDate expireDate;
 
-    public boolean toDelete;
-
-
     public User(String title, String firstname, String lastname) {
         this.title = title;
         this.firstname = firstname;
@@ -27,7 +24,7 @@ public class User {
     }
 
     public boolean isExpired() {
-        return expireDate == null || expireDate.isAfter(LocalDate.now());
+        return expireDate != null && expireDate.isBefore(LocalDate.now());
     }
 
     public String fullName() {
@@ -44,8 +41,4 @@ public class User {
         return this;
     }
 
-    public User delete() {
-        toDelete = true;
-        return this;
-    }
 }
