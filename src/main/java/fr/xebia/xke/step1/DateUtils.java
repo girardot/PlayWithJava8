@@ -15,6 +15,8 @@ public class DateUtils {
      * @return
      */
     public static Date parseDate(String date) {
+        //TODO: Replace with LocalDate
+
         try {  //SimpleDateFormat not thread safe must create new formater for each request
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             return format.parse(date);
@@ -30,6 +32,7 @@ public class DateUtils {
      * @return
      */
     public static Date parseDateTime(String date) {
+        //TODO: Replace with LocalDateTime
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
             return format.parse(date);
@@ -40,6 +43,7 @@ public class DateUtils {
 
 
     public static int age(Date birthday, Date now) {
+        //TODO: Replace with LocalDate and use Period
         Calendar calBirthday = Calendar.getInstance();
         calBirthday.setTime(birthday);
 
@@ -55,6 +59,7 @@ public class DateUtils {
     }
 
     public static Date dayDateWithTime(Date dayDate, int hour, int minute, int second) {
+        //TODO: Replace dayDate by LocalDate and result by LocalDateTime
         Calendar calendarDayDate = Calendar.getInstance();
         calendarDayDate.setTime(dayDate);
 
@@ -66,6 +71,7 @@ public class DateUtils {
     }
 
     public static Date addDuration(Date date, int minute) {
+        //TODO: Replace By LocalDateTime
         Calendar calendarDate = Calendar.getInstance();
         calendarDate.setTime(date);
 
@@ -80,6 +86,7 @@ public class DateUtils {
      * @return
      */
     public static boolean dayAreEquals(String firstDateWithTime, String secondDateWithTime) {
+        //TODO: Replace by LocalDateTime
         Calendar calendarDay1 = Calendar.getInstance();
         calendarDay1.setTime(parseDateTime(firstDateWithTime));
 
@@ -91,7 +98,7 @@ public class DateUtils {
     }
 
     public static String convertToTimeZone(String dateWithTime, String timeZoneFrom, String timeZoneTo) {
-
+        //TODO: Replace by ZoneDateTime
         try {
             SimpleDateFormat parserFrom = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
             parserFrom.setTimeZone(TimeZone.getTimeZone(timeZoneFrom));
