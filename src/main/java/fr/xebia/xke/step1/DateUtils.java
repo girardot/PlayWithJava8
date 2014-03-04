@@ -98,7 +98,7 @@ public class DateUtils {
     }
 
     public static String convertToTimeZone(String dateWithTime, String timeZoneFrom, String timeZoneTo) {
-        //TODO: Replace by ZoneDateTime
+        //TODO: Replace by ZonedDateTime
         try {
             SimpleDateFormat parserFrom = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
             parserFrom.setTimeZone(TimeZone.getTimeZone(timeZoneFrom));
