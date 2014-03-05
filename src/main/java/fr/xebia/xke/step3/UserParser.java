@@ -1,7 +1,6 @@
 package fr.xebia.xke.step3;
 
 import fr.xebia.xke.fr.xebia.xke.java8.data.User;
-import fr.xebia.xke.step1.DateUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,6 +8,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +39,8 @@ public class UserParser {
     }
 
     public static Path findRecursivelyFileByName(String path, String fileName) {
+        //TODO:replace by Files.walk
+
         Path rootDictory = Paths.get(path);
 
         SearchVisitor searchVisitor = new SearchVisitor(fileName);
@@ -54,12 +57,10 @@ public class UserParser {
 
     private static User lineToUser(String line) {
         String[] columns = line.split(",");
-        User user = new User(columns[0], columns[1]);
-        user.withLogin(columns[2])
-                .withPassword(columns[3])
-                .withbirthday(DateUtils.parseDateTime(columns[4]))
-                .withStartDate(DateUtils.parseDateTime(columns[5]))
-                .withEndDate(DateUtils.parseDateTime(columns[6]))
+        User user = new User(columns[0], columns[1], columns[2]);
+        user.withLogin(columns[3])
+                .withPassword(columns[4])
+                .withExpireDate(LocalDate.parse(columns[5], DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.")))
         ;
 
 
