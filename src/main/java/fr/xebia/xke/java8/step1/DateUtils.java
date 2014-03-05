@@ -1,4 +1,4 @@
-package fr.xebia.xke.step1;
+package fr.xebia.xke.java8.step1;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
