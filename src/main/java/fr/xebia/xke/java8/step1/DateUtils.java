@@ -1,4 +1,4 @@
-package fr.xebia.xke.step1;
+package fr.xebia.xke.java8.step1;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
