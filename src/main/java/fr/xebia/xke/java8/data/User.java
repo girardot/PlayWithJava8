@@ -1,4 +1,4 @@
-package fr.xebia.xke.fr.xebia.xke.java8.data;
+package fr.xebia.xke.java8.data;
 
 import java.time.LocalDate;
 

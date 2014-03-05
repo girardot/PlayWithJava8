@@ -1,6 +1,6 @@
-package fr.xebia.xke.step2;
+package fr.xebia.xke.java8.step2;
 
-import fr.xebia.xke.fr.xebia.xke.java8.data.User;
+import fr.xebia.xke.java8.data.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
