@@ -1,4 +1,4 @@
-package fr.xebia.xke.step3;
+package fr.xebia.xke.java8.step3;
 
 import org.junit.Test;
 

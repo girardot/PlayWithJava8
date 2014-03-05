@@ -1,4 +1,4 @@
-package fr.xebia.xke.step3;
+package fr.xebia.xke.java8.step3;
 
 import fr.xebia.xke.fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.step1.DateUtils;
