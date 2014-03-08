@@ -4,7 +4,6 @@ import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.java8.other.UserParser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {

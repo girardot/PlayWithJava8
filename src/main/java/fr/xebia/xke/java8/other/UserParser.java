@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +42,7 @@ public class UserParser {
         User user = new User(columns[0], columns[1], columns[2]);
         user.withLogin(columns[3])
                 .withPassword(columns[4])
-                .withExpireDate(LocalDate.parse(columns[5]))
+                .withExpireDate(LocalDate.parse(columns[5], DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.")))
                 .withRole(Role.valueOf(columns[6]))
         ;
 
