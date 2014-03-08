@@ -1,5 +1,6 @@
 package fr.xebia.xke.java8.step3;
 
+import fr.xebia.xke.java8.data.Address;
 import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.java8.other.UserParser;
@@ -31,17 +32,13 @@ public class UserService {
     }
 
     public String retrieveFormatedUserAddressByLogin(String login) {
-        for (User user : users) {
-            if (user.login.equals(login)) {
-                if (user.address != null) {
-                    return user.address.formatForEnveloppe();
-                } else {
-                    return DEFAULT_FORMATED_ADDRESS;
-                }
-            }
-        }
+        return users.stream().
+                filter(user -> user.login.equals(login)).
+                findFirst().
+                flatMap(user -> user.address).
+                map(Address::formatForEnveloppe)
+                .orElse(DEFAULT_FORMATED_ADDRESS);
 
-        throw new IllegalArgumentException("User not found with login : " + login);
     }
 
     public List<User> findAll() {

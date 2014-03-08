@@ -1,6 +1,7 @@
 package fr.xebia.xke.java8.data;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class User {
 
@@ -18,7 +19,7 @@ public class User {
 
     public Role role;
 
-    public Address address;
+    public Optional<Address> address = Optional.empty();
 
     public User(String title, String firstname, String lastname) {
         this.title = title;
@@ -52,7 +53,7 @@ public class User {
     }
 
     public User withAddress(Address address) {
-        this.address = address;
+        this.address = Optional.ofNullable(address);
         return this;
     }
 
