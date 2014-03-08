@@ -8,6 +8,7 @@ import java.util.List;
 
 public class UserService {
 
+    private static final String DEFAULT_FORMATED_ADDRESS = "1 rue de Rivoli\n75001 Paris";
     private List<User> users;
 
     public UserService() {
@@ -27,6 +28,20 @@ public class UserService {
 
     public boolean isLoginAlreadyExist(String login) {
         return users.stream().anyMatch(user -> user.login.equals(login));
+    }
+
+    public String retrieveFormatedUserAddressByLogin(String login) {
+        for (User user : users) {
+            if (user.login.equals(login)) {
+                if (user.address != null) {
+                    return user.address.formatForEnveloppe();
+                } else {
+                    return DEFAULT_FORMATED_ADDRESS;
+                }
+            }
+        }
+
+        throw new IllegalArgumentException("User not found with login : " + login);
     }
 
     public List<User> findAll() {

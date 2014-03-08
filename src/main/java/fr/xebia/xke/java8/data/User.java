@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 public class User {
 
-    public String title;
+    public final String title;
 
-    public String firstname;
+    public final String firstname;
 
-    public String lastname;
+    public final String lastname;
 
     public String login;
 
@@ -17,6 +17,8 @@ public class User {
     public LocalDate expireDate;
 
     public Role role;
+
+    public Address address;
 
     public User(String title, String firstname, String lastname) {
         this.title = title;
@@ -49,5 +51,9 @@ public class User {
         return this;
     }
 
+    public User withAddress(Address address) {
+        this.address = address;
+        return this;
+    }
 
 }

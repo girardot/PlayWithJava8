@@ -9,7 +9,7 @@
 
     <bean id="csvConsumer" class="CSVEntityExporter">
         <property name="uri" value="src/main/resources/users.csv"/>
-        <property name="columns" value="title,firstname,lastname,login,password,expireDate,role"/>
+        <property name="columns" value="title,firstname,lastname,login,password,expireDate,role,street,city,postalCode"/>
     </bean>
 
     <bean id="dateGenerator" class="DateTimeGenerator">
@@ -33,19 +33,20 @@
 
 
     <generate type="User" pageSize="1000" count="1000" consumer="csvConsumer">
-        <variable name="userInformation" generator="PersonGenerator" dataset="FR" locale="fr"/>
-        <variable name="billingAddress" generator="AddressGenerator" dataset="FR" locale="FR"/>
-        <variable name="deliveryAddress" generator="AddressGenerator" nullQuota="0.1" dataset="FR" locale="FR"/>
+        <variable name="userInformation" generator="PersonGenerator" unique="true" dataset="FR" locale="fr"/>
+        <variable name="address" generator="AddressGenerator" nullQuota="0.1" dataset="FR" locale="FR"/>
         <attribute name="title" type="String" script="userInformation.salutation"/>
         <attribute name="lastname" type="String" script="userInformation.familyName"/>
         <attribute name="firstname" type="String" script="userInformation.givenName"/>
         <variable name="firstnameFirstLetter" converter="firstLetterExtract"/>
-        <attribute name="login" type="String" script="firstnameFirstLetter+this.lastname"
+        <attribute name="login" type="String" script="this.firstname+this.lastname"
                    converter="ToLowerCaseConverter"/>
         <attribute name="password" type="String" generator="passwordGenerator" converter="ToLowerCaseConverter"/>
-        <attribute name="birthday" type="timestamp" script="userInformation.birthDate"/>
         <attribute name="expireDate" type="timestamp" generator="dateGenerator"/>
         <attribute name="role" values="'SALES','TRADER','ENGINEER'"/>
+        <attribute name="street" type="string"  script="address.houseNumber+' '+address.street"/>
+        <attribute name="city" type="string" script="address.city"/>
+        <attribute name="postalCode" type="string" script="address.postalCode"/>
     </generate>
 
 
