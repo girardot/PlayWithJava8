@@ -28,7 +28,16 @@ public class UserService {
         }
 
         return count;
+    }
 
+    public boolean isLoginAlreadyExist(String login) {
+        for (User user : users) {
+            if (user.login.equals(login)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public List<User> findAll() {

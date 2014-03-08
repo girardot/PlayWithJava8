@@ -2,8 +2,6 @@
 
 anyMatch
 distinct
-count
-filter
 findFirst
 flatMap
 map
