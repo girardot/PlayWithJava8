@@ -23,7 +23,10 @@ public class UserService {
         return users.stream().
                 filter(user -> user.role == role).
                 count();
+    }
 
+    public boolean isLoginAlreadyExist(String login) {
+        return users.stream().anyMatch(user -> user.login.equals(login));
     }
 
     public List<User> findAll() {

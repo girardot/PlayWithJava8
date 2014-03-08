@@ -11,10 +11,15 @@ public class UserServiceTest {
 
     @Test
     public void should_return_count_of_Role() {
-
         assertThat(userService.countUserWithRole(Role.SALES)).isEqualTo(322);
         assertThat(userService.countUserWithRole(Role.ENGINEER)).isEqualTo(315);
         assertThat(userService.countUserWithRole(Role.TRADER)).isEqualTo(363);
+    }
+
+    @Test
+    public void should_return_true_if_login_exist() {
+        assertThat(userService.isLoginAlreadyExist("cmoreau")).isTrue();
+        assertThat(userService.isLoginAlreadyExist("ibeauvais")).isFalse();
 
     }
 }
