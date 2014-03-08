@@ -16,6 +16,8 @@ public class User {
 
     public LocalDate expireDate;
 
+    public Role role;
+
     public User(String title, String firstname, String lastname) {
         this.title = title;
         this.firstname = firstname;
@@ -41,4 +43,11 @@ public class User {
         this.expireDate = expireDate;
         return this;
     }
+
+    public User withRole(Role role) {
+        this.role = role;
+        return this;
+    }
+
+
 }

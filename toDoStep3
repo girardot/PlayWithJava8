@@ -1,4 +1,14 @@
 -- Stream and collection
+
+anyMatch
+distinct
+count
+filter
+findFirst
+flatMap
+map
+reduce
+sorted
 Optional.ifPresent
 Collectors.joining
 Collectors.toMap

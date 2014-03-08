@@ -9,7 +9,7 @@
 
     <bean id="csvConsumer" class="CSVEntityExporter">
         <property name="uri" value="src/main/resources/users.csv"/>
-        <property name="columns" value="title,firstname,lastname,login,password,expireDate"/>
+        <property name="columns" value="title,firstname,lastname,login,password,expireDate,role"/>
     </bean>
 
     <bean id="dateGenerator" class="DateTimeGenerator">
@@ -45,6 +45,7 @@
         <attribute name="password" type="String" generator="passwordGenerator" converter="ToLowerCaseConverter"/>
         <attribute name="birthday" type="timestamp" script="userInformation.birthDate"/>
         <attribute name="expireDate" type="timestamp" generator="dateGenerator"/>
+        <attribute name="role" values="'SALES','TRADER','ENGINEER'"/>
     </generate>
 
 
