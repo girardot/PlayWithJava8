@@ -33,7 +33,7 @@ public class UserServiceTest {
         assertThat(userService.retrieveFormatedUserAddressByLogin("julielaurent")).isEqualTo("1 rue de Rivoli\n75001 Paris");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void should_return_throw_exception_when_user_not_exist() {
         assertThat(userService.retrieveFormatedUserAddressByLogin("ivanbeauvais")).isEqualTo("1 rue de Rivoli\n75001 Paris");
     }
