@@ -1,5 +1,6 @@
 package fr.xebia.xke.java8.other;
 
+import fr.xebia.xke.java8.data.Address;
 import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 
@@ -45,7 +46,9 @@ public class UserParser {
                 .withExpireDate(LocalDate.parse(columns[5], DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.")))
                 .withRole(Role.valueOf(columns[6]))
         ;
-
+        if(columns.length >8){
+            user.withAddress(new Address(columns[7], columns[8], columns[9]));
+        }
 
         return user;
     }

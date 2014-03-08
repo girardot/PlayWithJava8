@@ -1,6 +1,5 @@
 -- Stream and collection
 
-anyMatch
 distinct
 findFirst
 flatMap
