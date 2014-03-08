@@ -46,13 +46,11 @@ public class UserService {
             if (user.login.equals(login)) {
                 if (user.address != null) {
                     return user.address.formatForEnveloppe();
-                } else {
-                    return DEFAULT_FORMATED_ADDRESS;
                 }
             }
         }
 
-        throw new IllegalArgumentException("User not found with login : " + login);
+        return DEFAULT_FORMATED_ADDRESS;
     }
 
     public List<User> findAll() {
