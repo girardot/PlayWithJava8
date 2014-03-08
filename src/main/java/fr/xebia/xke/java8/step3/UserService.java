@@ -20,14 +20,9 @@ public class UserService {
     }
 
     public long countUserWithRole(Role role) {
-        long count = 0;
-        for (User user : users) {
-            if (user.role == role) {
-                count++;
-            }
-        }
-
-        return count;
+        return users.stream().
+                filter(user -> user.role == role).
+                count();
 
     }
 
