@@ -5,8 +5,9 @@ import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.java8.other.UserParser;
 
-import java.time.LocalDate;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UserService {
@@ -58,20 +59,8 @@ public class UserService {
     }
 
     public Map<Role, List<User>> retrieveActiveUserByRole() {
-        Map<Role, List<User>> result = new HashMap<>();
-
-        for (User user : users) {
-            if (user.getExpireDate() == null || user.getExpireDate().isAfter(LocalDate.now())) {
-
-                List<User> currentRoleUsers = result.get(user.getRole());
-                if (currentRoleUsers == null) {
-                    currentRoleUsers = new ArrayList<>();
-                    result.put(user.getRole(), currentRoleUsers);
-                }
-                currentRoleUsers.add(user);
-            }
-        }
-
-        return result;
+        return users.stream().
+                filter(user -> !user.isExpired()).
+                collect(Collectors.groupingBy(User::getRole));
     }
 }

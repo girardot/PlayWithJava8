@@ -5,7 +5,6 @@ import fr.xebia.xke.java8.data.User;
 import org.fest.assertions.core.Condition;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +71,7 @@ public class UserServiceTest {
 
         assertThat(engineers).hasSize(101);
         assertThat(sales).hasSize(128);
-        assertThat(traders).hasSize(104);
+        assertThat(traders).hasSize(105);
 
         assertThat(engineers).are(activeUser()).are(userWithRole(Role.ENGINEER));
         assertThat(traders).are(activeUser()).are(userWithRole(Role.TRADER));
@@ -91,7 +90,7 @@ public class UserServiceTest {
     private Condition<User> activeUser() {
         return new Condition<User>() {
             public boolean matches(User user) {
-                return user.getExpireDate() == null || user.getExpireDate().isAfter(LocalDate.now());
+                return !user.isExpired();
             }
         };
     }
