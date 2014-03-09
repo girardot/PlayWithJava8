@@ -2,10 +2,13 @@ package fr.xebia.xke.java8.step3;
 
 import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
+import org.fest.assertions.core.Condition;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -59,4 +62,37 @@ public class UserServiceTest {
         assertThat(usersOrdered.toString()).isEqualTo("[User{title='Mme', firstname='Pascal', lastname='Dubois'}, User{title='M.', firstname='Christophe', lastname='Mercier'}, User{title='Mme', firstname='Martine', lastname='Mercier'}]");
     }
 
+    @Test
+    public void should_return_active_users_by_role() {
+        Map<Role, List<User>> activeUsersByRole = userService.retrieveActiveUserByRole();
+
+        List<User> engineers = activeUsersByRole.get(Role.ENGINEER);
+        List<User> traders = activeUsersByRole.get(Role.TRADER);
+        List<User> sales = activeUsersByRole.get(Role.SALES);
+
+        assertThat(engineers).hasSize(101);
+        assertThat(sales).hasSize(128);
+        assertThat(traders).hasSize(104);
+
+        assertThat(engineers).are(activeUser()).are(userWithRole(Role.ENGINEER));
+        assertThat(traders).are(activeUser()).are(userWithRole(Role.TRADER));
+        assertThat(sales).are(activeUser()).are(userWithRole(Role.SALES));
+    }
+
+    private Condition<User> userWithRole(Role role) {
+        return new Condition<User>() {
+            @Override
+            public boolean matches(User user) {
+                return user.getRole() == role;
+            }
+        };
+    }
+
+    private Condition<User> activeUser() {
+        return new Condition<User>() {
+            public boolean matches(User user) {
+                return user.getExpireDate() == null || user.getExpireDate().isAfter(LocalDate.now());
+            }
+        };
+    }
 }

@@ -10,5 +10,3 @@ Collectors.joining
 Collectors.toMap
 Collectors.groupingBy
 Collectors.partitioningBy
-
-Comparator ThenComparing..
