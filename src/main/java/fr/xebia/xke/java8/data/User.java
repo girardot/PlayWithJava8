@@ -25,7 +25,6 @@ public class User {
         this.title = title;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.setLogin(firstname + "." + lastname);
     }
 
     public boolean isExpired() {

@@ -17,21 +17,21 @@ public class UserServiceTest {
 
     @Test
     public void should_return_count_of_Role() {
-        assertThat(userService.countUserWithRole(Role.SALES)).isEqualTo(325);
+        assertThat(userService.countUserWithRole(Role.SALES)).isEqualTo(322);
         assertThat(userService.countUserWithRole(Role.ENGINEER)).isEqualTo(336);
-        assertThat(userService.countUserWithRole(Role.TRADER)).isEqualTo(339);
+        assertThat(userService.countUserWithRole(Role.TRADER)).isEqualTo(342);
     }
 
     @Test
     public void should_return_true_if_login_exist() {
-        assertThat(userService.isLoginAlreadyExist("oliviermichel")).isTrue();
+        assertThat(userService.isLoginAlreadyExist("rogerbernard")).isTrue();
         assertThat(userService.isLoginAlreadyExist("ivanbeauvais")).isFalse();
 
     }
 
     @Test
     public void should_return_formated_address_when_user_with_address_exist() {
-        assertThat(userService.retrieveFormatedUserAddressByLogin("oliviermichel")).isEqualTo("33 Birch Street\nJUNTURA 97911");
+        assertThat(userService.retrieveFormatedUserAddressByLogin("rogerbernard")).isEqualTo("10 South Street\nMONTARA 94037");
     }
 
     @Test
@@ -69,13 +69,31 @@ public class UserServiceTest {
         List<User> traders = activeUsersByRole.get(Role.TRADER);
         List<User> sales = activeUsersByRole.get(Role.SALES);
 
-        assertThat(engineers).hasSize(101);
-        assertThat(sales).hasSize(128);
-        assertThat(traders).hasSize(105);
+        assertThat(engineers).hasSize(112);
+        assertThat(sales).hasSize(105);
+        assertThat(traders).hasSize(128);
 
         assertThat(engineers).are(activeUser()).are(userWithRole(Role.ENGINEER));
         assertThat(traders).are(activeUser()).are(userWithRole(Role.TRADER));
         assertThat(sales).are(activeUser()).are(userWithRole(Role.SALES));
+    }
+
+    @Test
+    public void should_return_user_by_login() {
+        Map<String, User> usersByLogin = userService.retrieveUserwithRoleByLogin(Role.SALES);
+
+        assertThat(usersByLogin).hasSize(322);
+        assertThat(usersByLogin.entrySet()).are(keyIsLoginOfValue());
+        assertThat(usersByLogin.values()).are(userWithRole(Role.SALES));
+
+    }
+
+    private Condition<Map.Entry<String, User>> keyIsLoginOfValue() {
+        return new Condition<Map.Entry<String, User>>() {
+            public boolean matches(Map.Entry<String, User> value) {
+                return value.getKey().equals(value.getValue().getLogin());
+            }
+        };
     }
 
     private Condition<User> userWithRole(Role role) {

@@ -8,6 +8,7 @@ import fr.xebia.xke.java8.other.UserParser;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserService {
@@ -62,5 +63,11 @@ public class UserService {
         return users.stream().
                 filter(user -> !user.isExpired()).
                 collect(Collectors.groupingBy(User::getRole));
+    }
+
+    public Map<String, User> retrieveUserwithRoleByLogin(Role role) {
+        return users.stream().
+                filter(user -> user.getRole() == role)
+                .collect(Collectors.toMap(User::getLogin, Function.identity()));
     }
 }

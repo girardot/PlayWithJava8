@@ -8,5 +8,4 @@ sorted
 Optional.ifPresent
 Collectors.joining
 Collectors.toMap
-Collectors.groupingBy
 Collectors.partitioningBy
