@@ -1,7 +1,6 @@
 -- Stream and collection
 
 distinct
-findFirst
 flatMap
 map
 reduce

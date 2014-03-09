@@ -23,19 +23,19 @@ public class UserService {
 
     public long countUserWithRole(Role role) {
         return users.stream().
-                filter(user -> user.role == role).
+                filter(user -> user.getRole() == role).
                 count();
     }
 
     public boolean isLoginAlreadyExist(String login) {
-        return users.stream().anyMatch(user -> user.login.equals(login));
+        return users.stream().anyMatch(user -> user.getLogin().equals(login));
     }
 
     public String retrieveFormatedUserAddressByLogin(String login) {
         return users.stream().
-                filter(user -> user.login.equals(login)).
+                filter(user -> user.getLogin().equals(login)).
                 findFirst().
-                flatMap(user -> user.address).
+                flatMap(user -> user.getAddress()).
                 map(Address::formatForEnveloppe)
                 .orElse(DEFAULT_FORMATED_ADDRESS);
 
