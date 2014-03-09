@@ -4,56 +4,116 @@ import java.time.LocalDate;
 
 public class User {
 
-    public final String title;
+    private final String title;
 
-    public final String firstname;
+    private final String firstname;
 
-    public final String lastname;
+    private final String lastname;
 
-    public String login;
+    private String login;
 
-    public String password;
+    private String password;
 
-    public LocalDate expireDate;
+    private LocalDate expireDate;
 
-    public Role role;
+    private Role role;
 
-    public Address address;
+    private Address address;
 
     public User(String title, String firstname, String lastname) {
         this.title = title;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.login = firstname + "." + lastname;
+        this.setLogin(firstname + "." + lastname);
     }
 
     public boolean isExpired() {
-        return expireDate != null && expireDate.isBefore(LocalDate.now());
+        return getExpireDate() != null && getExpireDate().isBefore(LocalDate.now());
     }
 
     public User withLogin(String login) {
-        this.login = login;
+        this.setLogin(login);
         return this;
     }
 
     public User withPassword(String password) {
-        this.password = password;
+        this.setPassword(password);
         return this;
     }
 
     public User withExpireDate(LocalDate expireDate) {
-        this.expireDate = expireDate;
+        this.setExpireDate(expireDate);
         return this;
     }
 
     public User withRole(Role role) {
-        this.role = role;
+        this.setRole(role);
         return this;
     }
 
     public User withAddress(Address address) {
-        this.address = address;
+        this.setAddress(address);
         return this;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public LocalDate getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(LocalDate expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "title='" + title + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
 }

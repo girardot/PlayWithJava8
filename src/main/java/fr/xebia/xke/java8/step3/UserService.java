@@ -4,6 +4,9 @@ import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.java8.other.UserParser;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class UserService {
@@ -23,7 +26,7 @@ public class UserService {
     public long countUserWithRole(Role role) {
         long count = 0;
         for (User user : users) {
-            if (user.role == role) {
+            if (user.getRole() == role) {
                 count++;
             }
         }
@@ -33,7 +36,7 @@ public class UserService {
 
     public boolean isLoginAlreadyExist(String login) {
         for (User user : users) {
-            if (user.login.equals(login)) {
+            if (user.getLogin().equals(login)) {
                 return true;
             }
         }
@@ -43,9 +46,9 @@ public class UserService {
 
     public String retrieveFormatedUserAddressByLogin(String login) {
         for (User user : users) {
-            if (user.login.equals(login)) {
-                if (user.address != null) {
-                    return user.address.formatForEnveloppe();
+            if (user.getLogin().equals(login)) {
+                if (user.getAddress() != null) {
+                    return user.getAddress().formatForEnveloppe();
                 }
             }
         }
@@ -53,7 +56,30 @@ public class UserService {
         return DEFAULT_FORMATED_ADDRESS;
     }
 
+    /**
+     * Return a copy of users list ordered by lastname and firstname
+     *
+     * @return
+     */
     public List<User> findAll() {
-        return users;
+        List<User> usersOrdered = new ArrayList<>(users.size());
+        usersOrdered.addAll(users);
+
+        Collections.sort(usersOrdered, new UserComparator());
+
+        return usersOrdered;
+    }
+
+    private static class UserComparator implements Comparator<User> {
+
+        public int compare(User userLeft, User userRight) {
+            int lastNameComparaison = userLeft.getLastname().compareTo(userRight.getLastname());
+            if (lastNameComparaison == 0) {
+                return userLeft.getFirstname().compareTo(userRight.getFirstname());
+            } else {
+
+                return lastNameComparaison;
+            }
+        }
     }
 }
