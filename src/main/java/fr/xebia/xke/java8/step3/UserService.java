@@ -97,4 +97,16 @@ public class UserService {
 
         return result;
     }
+
+    public Map<String, User> retrieveUserwithRoleByLogin(Role role) {
+        Map<String, User> result = new HashMap<>();
+
+        for (User user : users) {
+            if (user.getRole() == role) {
+                result.put(user.getLogin(), user);
+            }
+        }
+
+        return result;
+    }
 }
