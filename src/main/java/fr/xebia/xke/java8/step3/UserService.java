@@ -4,10 +4,7 @@ import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.java8.other.UserParser;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class UserService {
 
@@ -81,5 +78,23 @@ public class UserService {
                 return lastNameComparaison;
             }
         }
+    }
+
+    public Map<Role, List<User>> retrieveActiveUserByRole() {
+        Map<Role, List<User>> result = new HashMap<>();
+
+        for (User user : users) {
+            if (!user.isExpired()) {
+
+                List<User> currentRoleUsers = result.get(user.getRole());
+                if (currentRoleUsers == null) {
+                    currentRoleUsers = new ArrayList<>();
+                    result.put(user.getRole(), currentRoleUsers);
+                }
+                currentRoleUsers.add(user);
+            }
+        }
+
+        return result;
     }
 }
