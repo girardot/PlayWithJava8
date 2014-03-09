@@ -5,7 +5,9 @@ import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.java8.other.UserParser;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserService {
 
@@ -41,7 +43,17 @@ public class UserService {
 
     }
 
+    /**
+     * Return a copy of users list ordered by lastname and firstname
+     *
+     * @return
+     */
     public List<User> findAll() {
-        return users;
+        return users.stream().
+                sorted(
+                        Comparator.comparing(User::getLastname).
+                                thenComparing(User::getFirstname)
+                ).
+                collect(Collectors.toList());
     }
 }

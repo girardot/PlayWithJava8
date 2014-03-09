@@ -108,4 +108,13 @@ public class User {
     public void setAddress(Optional<Address> address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "title='" + title + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
 }
