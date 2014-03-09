@@ -26,20 +26,23 @@ public class UserService {
     }
 
     public long countUserWithRole(Role role) {
+        //TODO: use filter and count
         return users.stream().
                 filter(user -> user.getRole() == role).
                 count();
     }
 
     public boolean isLoginAlreadyExist(String login) {
+        //TODO: use anyMatch
         return users.stream().anyMatch(user -> user.getLogin().equals(login));
     }
 
     public String retrieveFormatedUserAddressByLogin(String login) {
+        //TODO: user filter and findFirst. Replace user.address type by Optional
         return users.stream().
                 filter(user -> user.getLogin().equals(login)).
                 findFirst().
-                flatMap(user -> user.getAddress()).
+                flatMap(User::getAddress).
                 map(Address::formatForEnveloppe)
                 .orElse(DEFAULT_FORMATED_ADDRESS);
 
@@ -51,6 +54,7 @@ public class UserService {
      * @return
      */
     public List<User> findAll() {
+        //TODO: use sorted without specific comparator class creation. Use Comparator methods and Collectors
         return users.stream().
                 sorted(
                         Comparator.comparing(User::getLastname).
@@ -60,12 +64,14 @@ public class UserService {
     }
 
     public Map<Role, List<User>> retrieveActiveUserByRole() {
+        //TODO: Use Collectors.groupingBy
         return users.stream().
                 filter(user -> !user.isExpired()).
                 collect(Collectors.groupingBy(User::getRole));
     }
 
     public Map<String, User> retrieveUserwithRoleByLogin(Role role) {
+        //TODO: Use Collectors.toMap
         return users.stream().
                 filter(user -> user.getRole() == role)
                 .collect(Collectors.toMap(User::getLogin, Function.identity()));
