@@ -21,6 +21,7 @@ public class UserService {
     }
 
     public long countUserWithRole(Role role) {
+        //TODO: use filter and count
         long count = 0;
         for (User user : users) {
             if (user.getRole() == role) {
@@ -32,6 +33,7 @@ public class UserService {
     }
 
     public boolean isLoginAlreadyExist(String login) {
+        //TODO: use anyMatch
         for (User user : users) {
             if (user.getLogin().equals(login)) {
                 return true;
@@ -42,6 +44,7 @@ public class UserService {
     }
 
     public String retrieveFormatedUserAddressByLogin(String login) {
+        //TODO: user filter and findFirst. Replace user.address type by Optional
         for (User user : users) {
             if (user.getLogin().equals(login)) {
                 if (user.getAddress() != null) {
@@ -59,6 +62,7 @@ public class UserService {
      * @return
      */
     public List<User> findAll() {
+        //TODO: use sorted without specific comparator class creation. Use Comparator methods and Collectors
         List<User> usersOrdered = new ArrayList<>(users.size());
         usersOrdered.addAll(users);
 
@@ -81,6 +85,7 @@ public class UserService {
     }
 
     public Map<Role, List<User>> retrieveActiveUserByRole() {
+        //TODO: Use Collectors.groupingBy
         Map<Role, List<User>> result = new HashMap<>();
 
         for (User user : users) {
@@ -99,6 +104,7 @@ public class UserService {
     }
 
     public Map<String, User> retrieveUserwithRoleByLogin(Role role) {
+        //TODO: Use Collectors.toMap
         Map<String, User> result = new HashMap<>();
 
         for (User user : users) {
