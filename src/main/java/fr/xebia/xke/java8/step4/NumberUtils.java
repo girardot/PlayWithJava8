@@ -7,15 +7,10 @@ import java.util.Random;
 public class NumberUtils {
 
     public static int[] generateRandom(int number, @Nullable Long seed) {
-        int[] randomValues = new int[number];
-
-        Random random = getRandom(seed);
-
-        for (int i = 0; i < number; i++) {
-            randomValues[i] = random.nextInt(number * 10);
-        }
-
-        return randomValues;
+        return getRandom(seed).
+                ints(0, number * 10).
+                limit(number).
+                toArray();
     }
 
     private static Random getRandom(Long seed) {
