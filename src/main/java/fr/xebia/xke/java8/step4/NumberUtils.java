@@ -2,20 +2,20 @@ package fr.xebia.xke.java8.step4;
 
 import com.sun.istack.internal.Nullable;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 public class NumberUtils {
 
-    public static Integer[] generateUniqueRandom(int number, @Nullable Long seed) {
-        Set<Integer> randomLong = new HashSet<>(number);
+    public static int[] generateRandom(int number, @Nullable Long seed) {
+        int[] randomValues = new int[number];
+
         Random random = getRandom(seed);
-        while (randomLong.size() < number) {
-            randomLong.add(random.nextInt(number * 10));
+
+        for (int i = 0; i < number; i++) {
+            randomValues[i] = random.nextInt(number * 10);
         }
 
-        return randomLong.toArray(new Integer[number]);
+        return randomValues;
     }
 
     private static Random getRandom(Long seed) {
