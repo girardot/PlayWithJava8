@@ -3,6 +3,8 @@ package fr.xebia.xke.java8.step4;
 import fr.xebia.xke.java8.data.User;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,15 +28,15 @@ public class FileUtilsTest {
     }
 
     @Test
-    public void should_find_file_path_by_filename() {
+    public void should_find_file_path_by_filename() throws IOException {
         Path fileWithName = FileUtils.findRecursivelyFileByName(".", "FileUtils.java");
 
         assertThat(fileWithName.toString()).isEqualTo("./src/main/java/fr/xebia/xke/java8/step4/FileUtils.java");
 
     }
 
-    @Test
-    public void should_not_find_file_path_by_filename_when_file_not_exist() {
+    @Test(expected = FileNotFoundException.class)
+    public void should_not_find_file_path_by_filename_when_file_not_exist() throws IOException {
         Path fileWithName = FileUtils.findRecursivelyFileByName(".", "UserParser123.java");
 
         assertThat(fileWithName).isNull();

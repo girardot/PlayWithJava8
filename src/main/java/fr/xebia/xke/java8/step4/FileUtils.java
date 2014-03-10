@@ -5,6 +5,7 @@ import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -39,20 +40,20 @@ public class FileUtils {
         }
     }
 
-    public static Path findRecursivelyFileByName(String path, String fileName) {
+    public static Path findRecursivelyFileByName(String path, String fileName) throws IOException {
         //TODO:replace by Files.walk
         Path rootDictory = Paths.get(path);
 
         SearchVisitor searchVisitor = new SearchVisitor(fileName);
 
-        try {
-            Files.walkFileTree(rootDictory, searchVisitor);
-            return searchVisitor.fileFound;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+        Files.walkFileTree(rootDictory, searchVisitor);
+        Path fileFound = searchVisitor.fileFound;
+        if (fileFound == null) {
+            throw new FileNotFoundException();
         }
+        return fileFound;
     }
+
 
     private static User lineToUser(String line) {
         String[] columns = line.split(",");
