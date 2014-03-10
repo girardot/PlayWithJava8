@@ -4,53 +4,41 @@ import fr.xebia.xke.java8.data.Address;
 import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileUtils {
 
     public static List<User> loadUsersFromCsv(String csvPath) {
         //TODO: Replace By Files.line
-        try (BufferedReader reader = new BufferedReader(new FileReader(getFileFromPath(csvPath).toFile()))) {
-            String line;
-            boolean firstLine = true;
-            List<User> users = new ArrayList<>();
-            while ((line = reader.readLine()) != null) {
-                if (!firstLine) {
-                    users.add(lineToUser(line));
-                }
-                firstLine = false;
-            }
-
-            return users;
-
-        } catch (URISyntaxException | IOException e) {
+        try (Stream<String> lines = Files.lines(getFileFromPath(csvPath))) {
+            return lines.
+                    skip(1).
+                    map(FileUtils::lineToUser).
+                    collect(Collectors.toList());
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
             return Collections.emptyList();
         }
     }
 
-    public static Path findRecursivelyFileByName(String path, String fileName) {
+    public static Path findRecursivelyFileByName(String path, String fileName) throws IOException {
         //TODO:replace by Files.walk
-        Path rootDictory = Paths.get(path);
+        try (Stream<Path> walk = Files.walk(Paths.get(path))) {
 
-        SearchVisitor searchVisitor = new SearchVisitor(fileName);
-
-        try {
-            Files.walkFileTree(rootDictory, searchVisitor);
-            return searchVisitor.fileFound;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            return walk.filter(p -> p.getFileName().toString().equals(fileName))
+                    .findFirst()
+                    .orElseThrow(FileNotFoundException::new);
         }
     }
 
@@ -71,25 +59,6 @@ public class FileUtils {
 
     private static Path getFileFromPath(String csvPath) throws URISyntaxException {
         return Paths.get(FileUtils.class.getClassLoader().getResource(csvPath).toURI());
-    }
-
-    public static class SearchVisitor extends SimpleFileVisitor<Path> {
-
-        private Path fileFound;
-        private String fileNameToSearch;
-
-        public SearchVisitor(String fileNameToSearch) {
-            this.fileNameToSearch = fileNameToSearch;
-        }
-
-        @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-            if (attrs.isRegularFile() && file.getFileName().toString().equals(fileNameToSearch)) {
-                fileFound = file;
-                return FileVisitResult.TERMINATE;
-            }
-            return FileVisitResult.CONTINUE;
-        }
     }
 
 }
