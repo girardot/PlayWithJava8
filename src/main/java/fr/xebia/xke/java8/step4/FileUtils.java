@@ -41,7 +41,6 @@ public class FileUtils {
 
     public static Path findRecursivelyFileByName(String path, String fileName) {
         //TODO:replace by Files.walk
-
         Path rootDictory = Paths.get(path);
 
         SearchVisitor searchVisitor = new SearchVisitor(fileName);
@@ -53,7 +52,6 @@ public class FileUtils {
             e.printStackTrace();
             return null;
         }
-
     }
 
     private static User lineToUser(String line) {
