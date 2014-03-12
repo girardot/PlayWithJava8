@@ -4,8 +4,6 @@ distinct
 flatMap
 map
 reduce
-sorted
 Optional.ifPresent
 Collectors.joining
-Collectors.toMap
 Collectors.partitioningBy
