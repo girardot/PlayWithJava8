@@ -7,9 +7,6 @@
 .idea/
 *.iml
 target/
-step1/
-step3/
-step4/
-step5/
+
 .DS_Store
 
