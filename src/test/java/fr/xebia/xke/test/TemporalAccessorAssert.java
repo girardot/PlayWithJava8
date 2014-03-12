@@ -1,7 +1,8 @@
 package fr.xebia.xke.test;
 
-import org.fest.assertions.api.AbstractAssert;
-import org.fest.assertions.api.Assertions;
+
+import org.assertj.core.api.AbstractAssert;
+import org.assertj.core.api.Assertions;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
