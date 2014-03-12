@@ -2,14 +2,14 @@ package fr.xebia.xke.java8.step3;
 
 import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
-import org.fest.assertions.core.Condition;
+import org.assertj.core.api.Condition;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserServiceTest {
 
