@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import static fr.xebia.xke.test.TemporalAccessorAssert.assertThat;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class DateUtilsTest {
 
