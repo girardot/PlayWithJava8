@@ -1,7 +1,7 @@
 package fr.xebia.xke.java8.step4;
 
-import com.sun.istack.internal.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class NumberUtils {
