@@ -1,8 +1,8 @@
 package fr.xebia.xke.java8.step2;
 
 import fr.xebia.xke.java8.data.User;
-import org.fest.assertions.core.Condition;
-import org.fest.assertions.data.MapEntry;
+import org.assertj.core.api.Condition;
+import org.assertj.core.data.MapEntry;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class BasicCollectionOperationsTest {
 
