@@ -5,7 +5,9 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class FileUtilsTest {
 
     @Test
     public void should_parse_user_csv() {
-        List<User> users = FileUtils.loadUsersFromCsv("users.csv");
+        List<User> users = FileUtils.loadUsersFromCsv(getFileFromPath("users.csv"));
 
         assertThat(users).hasSize(1000);
         User firstUser = users.get(0);
@@ -32,7 +34,6 @@ public class FileUtilsTest {
         Path fileWithName = FileUtils.findRecursivelyFileByName(".", "FileUtils.java");
 
         assertThat(fileWithName.toString()).isEqualTo("./src/main/java/fr/xebia/xke/java8/step4/FileUtils.java");
-
     }
 
     @Test(expected = FileNotFoundException.class)
@@ -40,6 +41,21 @@ public class FileUtilsTest {
         Path fileWithName = FileUtils.findRecursivelyFileByName(".", "UserParser123.java");
 
         assertThat(fileWithName).isNull();
+    }
 
+    @Test
+    public void should_parse_all_csv_in_path_and_sub_path() {
+        List<User> users = FileUtils.loadUsersFromMultipleCsv("target/");
+
+        assertThat(users).hasSize(2000);
+    }
+
+    private static Path getFileFromPath(String csvPath) {
+        try {
+            return Paths.get(FileUtils.class.getClassLoader().getResource(csvPath).toURI());
+        } catch (URISyntaxException e) {
+
+            return null;
+        }
     }
 }

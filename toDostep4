@@ -2,3 +2,5 @@
 Pattern.compile().splitAsTream
 Stream.generate
 SummaryStatistics
+
+IntStream.range

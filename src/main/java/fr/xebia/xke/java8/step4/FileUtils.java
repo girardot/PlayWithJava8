@@ -8,7 +8,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
@@ -19,9 +18,9 @@ import java.util.List;
 
 public class FileUtils {
 
-    public static List<User> loadUsersFromCsv(String csvPath) {
+    public static List<User> loadUsersFromCsv(Path csvPath) {
         //TODO: Replace By Files.line
-        try (BufferedReader reader = new BufferedReader(new FileReader(getFileFromPath(csvPath).toFile()))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvPath.toFile()))) {
             String line;
             boolean firstLine = true;
             List<User> users = new ArrayList<>();
@@ -34,7 +33,7 @@ public class FileUtils {
 
             return users;
 
-        } catch (URISyntaxException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return Collections.emptyList();
         }
@@ -54,29 +53,44 @@ public class FileUtils {
         return fileFound;
     }
 
+    public static List<User> loadUsersFromMultipleCsv(String csvPath) {
+        //TODO: Replace By Files.walk
+        CsvPathVisitor csvPathVisitor = new CsvPathVisitor();
+        List<User> users = new ArrayList<>();
+        try {
+            Files.walkFileTree(Paths.get(csvPath), csvPathVisitor);
 
-    private static User lineToUser(String line) {
-        String[] columns = line.split(",");
-        User user = new User(columns[0], columns[1], columns[2]);
-        user.withLogin(columns[3])
-                .withPassword(columns[4])
-                .withExpireDate(LocalDate.parse(columns[5], DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.")))
-                .withRole(Role.valueOf(columns[6]))
-        ;
-        if (columns.length > 8) {
-            user.withAddress(new Address(columns[7], columns[8], columns[9]));
+            for (Path path : csvPathVisitor.csvPaths) {
+                users.addAll(loadUsersFromCsv(path));
+            }
+
+            return users;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return users;
         }
-
-        return user;
     }
 
-    private static Path getFileFromPath(String csvPath) throws URISyntaxException {
-        return Paths.get(FileUtils.class.getClassLoader().getResource(csvPath).toURI());
+
+    public static class CsvPathVisitor extends SimpleFileVisitor<Path> {
+
+        private List<Path> csvPaths = new ArrayList<>();
+
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            if (attrs.isRegularFile() && file.getFileName().toString().endsWith(".csv")) {
+                csvPaths.add(file);
+            }
+            return FileVisitResult.CONTINUE;
+        }
+
     }
 
     public static class SearchVisitor extends SimpleFileVisitor<Path> {
 
         private Path fileFound;
+
         private String fileNameToSearch;
 
         public SearchVisitor(String fileNameToSearch) {
@@ -91,6 +105,22 @@ public class FileUtils {
             }
             return FileVisitResult.CONTINUE;
         }
+
+    }
+
+    private static User lineToUser(String line) {
+        String[] columns = line.split(",");
+        User user = new User(columns[0], columns[1], columns[2]);
+        user.withLogin(columns[3])
+                .withPassword(columns[4])
+                .withExpireDate(LocalDate.parse(columns[5], DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.")))
+                .withRole(Role.valueOf(columns[6]))
+        ;
+        if (columns.length > 8) {
+            user.withAddress(new Address(columns[7], columns[8], columns[9]));
+        }
+
+        return user;
     }
 
 }

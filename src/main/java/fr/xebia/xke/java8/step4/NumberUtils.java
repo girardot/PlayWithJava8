@@ -7,6 +7,7 @@ import java.util.*;
 public class NumberUtils {
 
     public static int[] generateRandom(int number, @Nullable Long seed) {
+        //TODO:Replace by Random.ints
         int[] randomValues = new int[number];
 
         Random random = getRandom(seed);
@@ -19,6 +20,8 @@ public class NumberUtils {
     }
 
     public static Map<Boolean, List<Integer>> splitEvenAndOddNumber(int[] numbers) {
+        //TODO: Use Collectors.partitioningBy
+
         List<Integer> evenNumber = new ArrayList<>();
         List<Integer> oddNumber = new ArrayList<>();
 
