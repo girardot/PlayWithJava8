@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 public class DateUtils {
 
-    private static final DateTimeFormatter DATE_PARSER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_PARSER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private static final DateTimeFormatter DATE_TIME_PARSER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.");
+    private static final DateTimeFormatter DATE_TIME_PARSER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     /**
      * Parse String date without times
@@ -53,13 +53,10 @@ public class DateUtils {
      * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss.
      * @return
      */
-    public static boolean dayAreEquals(String firstDateWithTime, String secondDateWithTime) {
+    public static boolean dayAreEquals(LocalDateTime firstDateWithTime, LocalDateTime secondDateWithTime) {
         //TODO: Replace by LocalDateTime
-        LocalDateTime firstLocalDateTime = parseDateTime(firstDateWithTime);
 
-        LocalDateTime secondLocalDateTime = parseDateTime(secondDateWithTime);
-
-        return firstLocalDateTime.toLocalDate().equals(secondLocalDateTime.toLocalDate());
+        return firstDateWithTime.toLocalDate().equals(secondDateWithTime.toLocalDate());
     }
 
     public static String convertToTimeZone(String dateWithTime, String timeZoneFrom, String timeZoneTo) {
