@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -16,9 +17,8 @@ public class DateUtilsTest {
 
     @Test
     public void should_parse_date() {
-        Date date = DateUtils.parseDate("27/01/2014");
 
-        assertThat(date).isInSameDayAs("2014-01-27");
+        assertThat(DateUtils.parseDate("27/01/2014")).isInSameDayAs("2014-01-27");
     }
 
     @Test
@@ -39,21 +39,15 @@ public class DateUtilsTest {
     }
 
     private int computeAgeFor(String birthday, String currentDate) {
-        return DateUtils.age(parseDateJava7(birthday), parseDateJava7(currentDate));
-    }
+        //TODO:Change parseDateJava7 to parseDateJava8 for switch to localDate
 
-    private Date parseDateJava7(String java7Date) {
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(java7Date);
-        } catch (ParseException e) {
-            return null;
-        }
+        return DateUtils.age(parseDateJava7(birthday), parseDateJava7(currentDate));
     }
 
     @Test
     public void should_compute_day_with_time() {
-        Date day = parseDateJava7("2013-07-08");
-        Date dateWithTime = DateUtils.dayDateWithTime(day, 15, 12, 3);
+        //TODO:Change parseDateJava7 to parseDateJava8 for switch to localDate
+        Date dateWithTime = DateUtils.dayDateWithTime(parseDateJava7("2013-07-08"), 15, 12, 3);
 
         assertThat(dateWithTime).isInSameDayAs("2013-07-08");
         assertThat(dateWithTime).isWithinHourOfDay(15);
@@ -63,6 +57,7 @@ public class DateUtilsTest {
 
     @Test
     public void should_add_duration() {
+        //TODO:Change parseDateTimeJava7 to parseDateTimeJava8 for switch to localDate
         Date date = DateUtils.addDuration(parseDateTimeJava7("2014-01-27T12:05:10."), 162);
 
         assertThat(date).isInSameDayAs("2014-01-27");
@@ -71,18 +66,11 @@ public class DateUtilsTest {
         assertThat(date).isWithinSecond(10);
     }
 
-    private Date parseDateTimeJava7(String dateTime) {
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.").parse(dateTime);
-        } catch (ParseException e) {
-            return null;
-        }
-    }
-
     @Test
     public void should_return_true_when_days_are_equals() {
-        assertThat(DateUtils.dayAreEquals("27/01/2014 12:05:10", "27/01/2014 20:05:10")).isTrue();
-        assertThat(DateUtils.dayAreEquals("27/01/2014 12:05:10", "28/01/2014 12:05:10")).isFalse();
+        //TODO:Change parseDateTimeJava7 to parseDateTimeJava8 for switch to localDate
+        assertThat(DateUtils.dayAreEquals(parseDateTimeJava7("2014-01-27T12:05:10."), parseDateTimeJava7("2014-01-27T20:05:10."))).isTrue();
+        assertThat(DateUtils.dayAreEquals(parseDateTimeJava7("2014-01-27T12:05:10."), parseDateTimeJava7("2014-01-28T12:05:10."))).isFalse();
     }
 
     @Test
@@ -97,5 +85,29 @@ public class DateUtilsTest {
     public void fake_test() {
         assertThat(LocalDate.now()).isInSameDayAs(LocalDate.now().format(DateTimeFormatter.ISO_DATE));
 
+    }
+
+    private LocalDate parseDateJava8(String date) {
+        return LocalDate.parse(date);
+    }
+
+    private Date parseDateJava7(String java7Date) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(java7Date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    private LocalDateTime parseDateTimeJava8(String dateTime) {
+        return LocalDateTime.parse(dateTime);
+    }
+
+    private Date parseDateTimeJava7(String dateTime) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.").parse(dateTime);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 }

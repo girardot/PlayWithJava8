@@ -85,13 +85,13 @@ public class DateUtils {
      * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss.
      * @return
      */
-    public static boolean dayAreEquals(String firstDateWithTime, String secondDateWithTime) {
+    public static boolean dayAreEquals(Date firstDateWithTime, Date secondDateWithTime) {
         //TODO: Replace by LocalDateTime
         Calendar calendarDay1 = Calendar.getInstance();
-        calendarDay1.setTime(parseDateTime(firstDateWithTime));
+        calendarDay1.setTime(firstDateWithTime);
 
         Calendar calendarDay2 = Calendar.getInstance();
-        calendarDay2.setTime(parseDateTime(secondDateWithTime));
+        calendarDay2.setTime(secondDateWithTime);
 
         return calendarDay1.get(Calendar.YEAR) == calendarDay2.get(Calendar.YEAR) &&
                 calendarDay1.get(Calendar.DAY_OF_YEAR) == calendarDay2.get(Calendar.DAY_OF_YEAR);
