@@ -11,14 +11,14 @@ public class DateUtils {
     /**
      * Parse String date without times
      *
-     * @param date format  yyyy-MM-dd
+     * @param date format  dd/MM/yyyy
      * @return
      */
     public static Date parseDate(String date) {
         //TODO: Replace with LocalDate
 
         try {  //SimpleDateFormat not thread safe must create new formater for each request
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             return format.parse(date);
         } catch (ParseException e) {
             throw new IllegalArgumentException("bad format " + date);
@@ -28,13 +28,13 @@ public class DateUtils {
     /**
      * parse String date with time
      *
-     * @param date format  yyyy-MM-dd'T'HH:mm:ss.
+     * @param date format  dd/MM/yyyy HH:mm:ss
      * @return
      */
     public static Date parseDateTime(String date) {
         //TODO: Replace with LocalDateTime
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             return format.parse(date);
         } catch (ParseException e) {
             throw new IllegalArgumentException("bad format " + date);
