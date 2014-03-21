@@ -59,9 +59,9 @@ public class DateUtils {
         return firstDateWithTime.toLocalDate().equals(secondDateWithTime.toLocalDate());
     }
 
-    public static String convertToTimeZone(String dateWithTime, String timeZoneFrom, String timeZoneTo) {
-        //TODO: Replace by ZonedDateTime
-        ZonedDateTime zoneDateTime = parseDateTime(dateWithTime).atZone(ZoneId.of(timeZoneFrom));
-        return zoneDateTime.withZoneSameInstant(ZoneId.of(timeZoneTo)).format(DATE_TIME_PARSER);
+    public static String convertToTimeZone(String dateWithTime, ZoneId timeZoneFrom, ZoneId timeZoneTo) {
+        //TODO: parse with LocalDateTime and use ZonedDateTime for conversion
+        ZonedDateTime zoneDateTime = parseDateTime(dateWithTime).atZone(timeZoneFrom);
+        return zoneDateTime.withZoneSameInstant(timeZoneTo).format(DATE_TIME_PARSER);
     }
 }
