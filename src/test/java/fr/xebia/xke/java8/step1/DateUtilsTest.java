@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -75,7 +76,7 @@ public class DateUtilsTest {
 
     @Test
     public void should_convert_to_time_zone() {
-        String date = DateUtils.convertToTimeZone("18/01/2014 12:00:00", "Europe/Moscow", "America/New_York");
+        String date = DateUtils.convertToTimeZone("18/01/2014 12:00:00.", ZoneId.of("Europe/Moscow"), ZoneId.of("America/New_York"));
 
         assertThat(date).isEqualTo("18/01/2014 03:00:00");
 
