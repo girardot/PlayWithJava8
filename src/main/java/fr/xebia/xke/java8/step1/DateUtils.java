@@ -2,6 +2,7 @@ package fr.xebia.xke.java8.step1;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -97,15 +98,15 @@ public class DateUtils {
                 calendarDay1.get(Calendar.DAY_OF_YEAR) == calendarDay2.get(Calendar.DAY_OF_YEAR);
     }
 
-    public static String convertToTimeZone(String dateWithTime, String timeZoneFrom, String timeZoneTo) {
+    public static String convertToTimeZone(String dateWithTime, ZoneId timeZoneFrom, ZoneId timeZoneTo) {
         //TODO: Replace by ZonedDateTime
         try {
-            SimpleDateFormat parserFrom = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
+            SimpleDateFormat parserFrom = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             parserFrom.setTimeZone(TimeZone.getTimeZone(timeZoneFrom));
 
             Date date = parserFrom.parse(dateWithTime);
 
-            SimpleDateFormat formatWithTimeZone = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.");
+            SimpleDateFormat formatWithTimeZone = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             formatWithTimeZone.setTimeZone(TimeZone.getTimeZone(timeZoneTo));
 
             return formatWithTimeZone.format(date);
