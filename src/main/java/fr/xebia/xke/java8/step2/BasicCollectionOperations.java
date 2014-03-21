@@ -16,7 +16,7 @@ public class BasicCollectionOperations {
     }
 
     public static void removeExpiredUsers(List<User> users) {
-        //TODO :Refactor with removeIf
+        //TODO :Refactor with removeIf , use method reference
 
         users.removeIf(User::isExpired);
     }
