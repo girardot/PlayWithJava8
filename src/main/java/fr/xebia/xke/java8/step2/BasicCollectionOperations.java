@@ -11,7 +11,7 @@ import java.util.Map;
 public class BasicCollectionOperations {
 
     public static void resetPassword(List<User> users) {
-        //TODO :Refactor with new Iterable Method
+        //TODO :Refactor with forEach
 
         for (User user : users) {
             user.password = null;
@@ -19,7 +19,7 @@ public class BasicCollectionOperations {
     }
 
     public static void removeExpiredUsers(List<User> users) {
-        //TODO :Refactor with new Collection Method
+        //TODO :Refactor with removeIf
 
         List<User> usersToRemove = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class BasicCollectionOperations {
     }
 
     public static void addOneDayToDates(List<LocalDate> localDates) {
-        //TODO :Refactor with new List Method
+        //TODO :Refactor with replaceAll
 
         for (int i = 0; i < localDates.size(); i++) {
             LocalDate localDate = localDates.get(i);
@@ -44,7 +44,7 @@ public class BasicCollectionOperations {
     }
 
     public static Map<String, Integer> countWord(List<String> words) {
-        //TODO :Refactor Map computation with new map method and you can eventually change loop by iterable method
+        //TODO :Refactor Map computation with merge and you can eventually change loop by forEach method
         Map<String, Integer> count = new HashMap<>();
 
         for (String word : words) {
