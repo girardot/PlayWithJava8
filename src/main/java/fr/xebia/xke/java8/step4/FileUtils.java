@@ -19,7 +19,7 @@ import java.util.List;
 public class FileUtils {
 
     public static List<User> loadUsersFromCsv(Path csvPath) {
-        //TODO: Replace By Files.line
+        //TODO: Replace By Files.line, use static method reference for the stream.map
         try (BufferedReader reader = new BufferedReader(new FileReader(csvPath.toFile()))) {
             String line;
             boolean firstLine = true;
@@ -40,7 +40,7 @@ public class FileUtils {
     }
 
     public static Path findRecursivelyFileByName(String path, String fileName) throws IOException {
-        //TODO:replace by Files.walk
+        //TODO:replace by Files.walk and remove visitor
         Path rootDictory = Paths.get(path);
 
         SearchVisitor searchVisitor = new SearchVisitor(fileName);
@@ -51,40 +51,6 @@ public class FileUtils {
             throw new FileNotFoundException();
         }
         return fileFound;
-    }
-
-    public static List<User> loadUsersFromMultipleCsv(String csvPath) {
-        //TODO: Replace By Files.walk
-        CsvPathVisitor csvPathVisitor = new CsvPathVisitor();
-        List<User> users = new ArrayList<>();
-        try {
-            Files.walkFileTree(Paths.get(csvPath), csvPathVisitor);
-
-            for (Path path : csvPathVisitor.csvPaths) {
-                users.addAll(loadUsersFromCsv(path));
-            }
-
-            return users;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return users;
-        }
-    }
-
-
-    public static class CsvPathVisitor extends SimpleFileVisitor<Path> {
-
-        private List<Path> csvPaths = new ArrayList<>();
-
-        @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-            if (attrs.isRegularFile() && file.getFileName().toString().endsWith(".csv")) {
-                csvPaths.add(file);
-            }
-            return FileVisitResult.CONTINUE;
-        }
-
     }
 
     public static class SearchVisitor extends SimpleFileVisitor<Path> {

@@ -43,13 +43,6 @@ public class FileUtilsTest {
         assertThat(fileWithName).isNull();
     }
 
-    @Test
-    public void should_parse_all_csv_in_path_and_sub_path() {
-        List<User> users = FileUtils.loadUsersFromMultipleCsv("target/");
-
-        assertThat(users).hasSize(2000);
-    }
-
     private static Path getFileFromPath(String csvPath) {
         try {
             return Paths.get(FileUtils.class.getClassLoader().getResource(csvPath).toURI());

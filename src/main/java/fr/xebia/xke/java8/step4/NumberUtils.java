@@ -6,6 +6,13 @@ import java.util.*;
 
 public class NumberUtils {
 
+    /**
+     * Return the 'number' random int between 0 and 'number * 10'
+     *
+     * @param number
+     * @param seed
+     * @return
+     */
     public static int[] generateRandom(int number, @Nullable Long seed) {
         //TODO:Replace by Random.ints
         int[] randomValues = new int[number];
