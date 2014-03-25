@@ -19,21 +19,21 @@ import java.util.stream.Stream;
 
 public class FileUtils {
 
-    public static List<User> loadUsersFromCsv(String csvPath) {
-        //TODO: Replace By Files.line
-        try (Stream<String> lines = Files.lines(getFileFromPath(csvPath))) {
+    public static List<User> loadUsersFromCsv(Path path) {
+        //TODO: Replace By Files.line, use static method reference for the stream.map
+        try (Stream<String> lines = Files.lines(path)) {
             return lines.
                     skip(1).
                     map(FileUtils::lineToUser).
                     collect(Collectors.toList());
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return Collections.emptyList();
         }
     }
 
     public static Path findRecursivelyFileByName(String path, String fileName) throws IOException {
-        //TODO:replace by Files.walk
+        //TODO:replace by Files.walk and remove visitor
         try (Stream<Path> walk = Files.walk(Paths.get(path))) {
 
             return walk.filter(p -> p.getFileName().toString().equals(fileName))
@@ -55,10 +55,6 @@ public class FileUtils {
         }
 
         return user;
-    }
-
-    private static Path getFileFromPath(String csvPath) throws URISyntaxException {
-        return Paths.get(FileUtils.class.getClassLoader().getResource(csvPath).toURI());
     }
 
 }

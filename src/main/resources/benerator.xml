@@ -8,7 +8,7 @@
             />
 
     <bean id="csvConsumer" class="CSVEntityExporter">
-        <property name="uri" value="src/main/resources/users.csv"/>
+        <property name="uri" value="src/main/resources/users2.csv"/>
         <property name="columns"
                   value="title,firstname,lastname,login,password,expireDate,role,street,city,postalCode"/>
     </bean>
@@ -33,7 +33,7 @@
     </bean>
 
 
-    <generate type="User" pageSize="1000" count="1000" consumer="csvConsumer">
+    <generate type="User" pageSize="100000" count="10000" consumer="csvConsumer">
         <variable name="userInformation" generator="PersonGenerator" dataset="FR" locale="fr"/>
         <variable name="address" generator="AddressGenerator" nullQuota="0.1" dataset="FR" locale="FR"/>
         <attribute name="title" type="String" script="userInformation.salutation"/>
