@@ -62,7 +62,7 @@ public class UserService {
      * @return
      */
     public List<User> findAll() {
-        //TODO: use sorted without specific comparator class creation. Use Comparator methods and Collectors
+        //TODO: replace specific comparator by  Comparator static methods and Collectors
         List<User> usersOrdered = new ArrayList<>(users.size());
         usersOrdered.addAll(users);
 
