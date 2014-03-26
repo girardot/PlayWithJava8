@@ -115,4 +115,26 @@ public class UserService {
 
         return result;
     }
+
+    public String generateAgeStatistic() {
+        int count = 0;
+        int min = Integer.MAX_VALUE;
+        int max = 0;
+        int sum = 0;
+
+        for (User user : users) {
+            int age = user.age();
+            if (age > max) {
+                max = age;
+            }
+            if (age < min) {
+                min = age;
+            }
+            count++;
+            sum += age;
+        }
+        int average = sum / count;
+
+        return String.format("Number of user : %d\nAge min : %d\nAge max : %d\nAge average : %d", count, min, max, average);
+    }
 }

@@ -17,26 +17,26 @@ public class UserServiceTest {
 
     @Test
     public void should_return_count_of_Role() {
-        assertThat(userService.countUserWithRole(Role.SALES)).isEqualTo(322);
-        assertThat(userService.countUserWithRole(Role.ENGINEER)).isEqualTo(336);
-        assertThat(userService.countUserWithRole(Role.TRADER)).isEqualTo(342);
+        assertThat(userService.countUserWithRole(Role.SALES)).isEqualTo(340);
+        assertThat(userService.countUserWithRole(Role.ENGINEER)).isEqualTo(367);
+        assertThat(userService.countUserWithRole(Role.TRADER)).isEqualTo(293);
     }
 
     @Test
     public void should_return_true_if_login_exist() {
-        assertThat(userService.isLoginAlreadyExist("rogerbernard")).isTrue();
+        assertThat(userService.isLoginAlreadyExist("christianemoreau")).isTrue();
         assertThat(userService.isLoginAlreadyExist("ivanbeauvais")).isFalse();
 
     }
 
     @Test
     public void should_return_formated_address_when_user_with_address_exist() {
-        assertThat(userService.retrieveFormatedUserAddressByLogin("rogerbernard")).isEqualTo("10 South Street\nMONTARA 94037");
+        assertThat(userService.retrieveFormatedUserAddressByLogin("dominiquevincent")).isEqualTo("5 6th Street\nLIGHTFOOT 23090");
     }
 
     @Test
     public void should_return_formated_address_when_user_without_address_exist() {
-        assertThat(userService.retrieveFormatedUserAddressByLogin("julielaurent")).isEqualTo("1 rue de Rivoli\n75001 Paris");
+        assertThat(userService.retrieveFormatedUserAddressByLogin("christianemoreau")).isEqualTo("1 rue de Rivoli\n75001 Paris");
     }
 
     @Test
@@ -69,9 +69,9 @@ public class UserServiceTest {
         List<User> traders = activeUsersByRole.get(Role.TRADER);
         List<User> sales = activeUsersByRole.get(Role.SALES);
 
-        assertThat(engineers).hasSize(112);
-        assertThat(sales).hasSize(105);
-        assertThat(traders).hasSize(128);
+        assertThat(engineers).hasSize(127);
+        assertThat(sales).hasSize(102);
+        assertThat(traders).hasSize(98);
 
         assertThat(engineers).are(activeUser()).are(userWithRole(Role.ENGINEER));
         assertThat(traders).are(activeUser()).are(userWithRole(Role.TRADER));
@@ -82,10 +82,19 @@ public class UserServiceTest {
     public void should_return_user_by_login() {
         Map<String, User> usersByLogin = userService.retrieveUserwithRoleByLogin(Role.SALES);
 
-        assertThat(usersByLogin).hasSize(322);
+        assertThat(usersByLogin).hasSize(340);
         assertThat(usersByLogin.entrySet()).are(keyIsLoginOfValue());
         assertThat(usersByLogin.values()).are(userWithRole(Role.SALES));
 
+    }
+
+    @Test
+    public void should_return_users_statistics() {
+
+        assertThat(userService.generateAgeStatistic()).isEqualTo("Number of user : 1000\n" +
+                "Age min : 15\n" +
+                "Age max : 105\n" +
+                "Age average : 60");
     }
 
     private Condition<Map.Entry<String, User>> keyIsLoginOfValue() {
