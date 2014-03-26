@@ -59,4 +59,33 @@ public class BasicCollectionOperations {
         return count;
     }
 
+
+    private static Map<Integer, Long> fibonacciValues = new HashMap<>();
+
+    static {
+        fibonacciValues.put(0, 0L);
+        fibonacciValues.put(1, 1L);
+        fibonacciValues.put(2, 1L);
+    }
+
+    public static List<Long> fibonacci(int expectedNumberResult) {
+        //TODO: Unit test for fibonacci(45) is very slow. Optimize with fibonacciValues map and computeIfAbsent
+
+        List<Long> result = new ArrayList<>(expectedNumberResult);
+
+        for (int i = 1; i <= expectedNumberResult; i++) {
+
+            result.add(fibonacciComputation(i));
+        }
+        return result;
+    }
+
+    private static long fibonacciComputation(int number) {
+        if (number < 2) {
+            return number;
+        } else {
+            return fibonacciComputation(number - 1) + fibonacciComputation(number - 2);
+        }
+    }
+
 }
