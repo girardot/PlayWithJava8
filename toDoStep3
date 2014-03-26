@@ -1,9 +1,7 @@
 -- Stream and collection
 
 distinct
-flatMap
 map
 reduce
 Optional.ifPresent
 Collectors.joining
-Collectors.partitioningBy

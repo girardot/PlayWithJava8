@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserParser {
+    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.");
 
     public static List<User> fromCsv(String csvPath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(getFileFromPath(csvPath).toFile()))) {
@@ -41,13 +42,15 @@ public class UserParser {
     private static User lineToUser(String line) {
         String[] columns = line.split(",");
         User user = new User(columns[0], columns[1], columns[2]);
+
         user.withLogin(columns[3])
                 .withPassword(columns[4])
-                .withExpireDate(LocalDate.parse(columns[5], DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.")))
+                .withExpireDate(LocalDate.parse(columns[5], dateTimeFormatter))
                 .withRole(Role.valueOf(columns[6]))
+                .withBirthday(LocalDate.parse(columns[7], dateTimeFormatter))
         ;
-        if(columns.length >8){
-            user.withAddress(new Address(columns[7], columns[8], columns[9]));
+        if (columns.length > 9) {
+            user.withAddress(new Address(columns[8], columns[9], columns[10]));
         }
 
         return user;

@@ -2,6 +2,7 @@ package fr.xebia.xke.java8.data;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.time.Period;
 
 public class User {
 
@@ -20,6 +21,8 @@ public class User {
     private Role role;
 
     private Optional<Address> address = Optional.empty();
+
+    private LocalDate birthday;
 
     public User(String title, String firstname, String lastname) {
         this.title = title;
@@ -53,6 +56,11 @@ public class User {
 
     public User withAddress(Address address) {
         this.setAddress(Optional.ofNullable(address));
+        return this;
+    }
+
+    public User withBirthday(LocalDate birthday) {
+        this.birthday = birthday;
         return this;
     }
 
@@ -115,5 +123,9 @@ public class User {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 '}';
+    }
+
+    public int age() {
+        return Period.between(birthday, LocalDate.now()).getYears();
     }
 }
