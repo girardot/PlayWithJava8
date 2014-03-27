@@ -3,8 +3,11 @@ package fr.xebia.xke.java8.step4;
 import com.sun.istack.internal.Nullable;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class NumberUtils {
 
@@ -39,6 +42,15 @@ public class NumberUtils {
                 collect(Collectors.toList());
     }
 
+    /**
+     * @return Infinite stream who return each next number of fibonacci sequence
+     */
+    public static Stream<Long> fibonacciStream() {
+        //TODO: Implemente method, update test for validation
+        return Stream.generate(new fibonacciGenerator());
+    }
+
+
     private static long fibonacciComputation(int number) {
         return fibonacciValues.computeIfAbsent(number, newNumber -> fibonacciComputation(newNumber - 1) + fibonacciComputation(newNumber - 2));
     }
@@ -48,6 +60,16 @@ public class NumberUtils {
             return new Random();
         } else {
             return new Random(seed);
+        }
+    }
+
+    public static class fibonacciGenerator implements Supplier<Long> {
+
+        private AtomicInteger number = new AtomicInteger(1);
+
+        @Override
+        public Long get() {
+            return fibonacciComputation(number.getAndIncrement());
         }
     }
 }
