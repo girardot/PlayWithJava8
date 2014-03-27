@@ -94,7 +94,7 @@ public class UserServiceTest {
         assertThat(userService.generateAgeStatistic()).isEqualTo("Number of user : 1000\n" +
                 "Age min : 15\n" +
                 "Age max : 105\n" +
-                "Age average : 60");
+                "Age average : 60,23");
     }
 
     private Condition<Map.Entry<String, User>> keyIsLoginOfValue() {
