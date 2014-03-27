@@ -6,6 +6,7 @@ import fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.java8.other.UserParser;
 
 import java.util.Comparator;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -78,24 +79,9 @@ public class UserService {
     }
 
     public String generateAgeStatistic() {
-        int count = 0;
-        int min = Integer.MAX_VALUE;
-        int max = 0;
-        int sum = 0;
+        //TODO: use Collectors.summarizingInt
+        IntSummaryStatistics summaryStatistics = users.stream().collect(Collectors.summarizingInt(User::age));
 
-        for (User user : users) {
-            int age = user.age();
-            if (age > max) {
-                max = age;
-            }
-            if (age < min) {
-                min = age;
-            }
-            count++;
-            sum += age;
-        }
-        double average = (double) sum / count;
-
-        return String.format("Number of user : %d\nAge min : %d\nAge max : %d\nAge average : %.2f", count, min, max, average);
+        return String.format("Number of user : %d\nAge min : %d\nAge max : %d\nAge average : %.2f", summaryStatistics.getCount(), summaryStatistics.getMin(), summaryStatistics.getMax(), summaryStatistics.getAverage());
     }
 }
