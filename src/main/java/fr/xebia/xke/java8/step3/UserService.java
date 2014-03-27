@@ -117,6 +117,7 @@ public class UserService {
     }
 
     public String generateAgeStatistic() {
+        //TODO: use Collectors.summarizingInt
         int count = 0;
         int min = Integer.MAX_VALUE;
         int max = 0;
