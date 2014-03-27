@@ -1,8 +1,11 @@
 package fr.xebia.xke.java8.step4;
 
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class NumberUtils {
 
@@ -65,6 +68,14 @@ public class NumberUtils {
             result.add(fibonacciComputation(i));
         }
         return result;
+    }
+
+    /**
+     * @return Infinite stream who return each next number of fibonacci sequence
+     */
+    public static Stream<Long> fibonacciStream() {
+        //TODO: Implemente method, update test for validation
+        throw new NotImplementedException();
     }
 
     private static long fibonacciComputation(int number) {
