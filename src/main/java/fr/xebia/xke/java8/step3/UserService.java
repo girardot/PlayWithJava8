@@ -133,8 +133,8 @@ public class UserService {
             count++;
             sum += age;
         }
-        int average = sum / count;
+        double average = (double) sum / count;
 
-        return String.format("Number of user : %d\nAge min : %d\nAge max : %d\nAge average : %d", count, min, max, average);
+        return String.format("Number of user : %d\nAge min : %d\nAge max : %d\nAge average : %.2f", count, min, max, average);
     }
 }
