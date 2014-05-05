@@ -1,7 +1,0 @@
--- Stream and collection
-
-distinct
-map
-reduce
-Optional.ifPresent
-Collectors.joining
