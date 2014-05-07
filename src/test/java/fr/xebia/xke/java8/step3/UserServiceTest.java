@@ -70,7 +70,7 @@ public class UserServiceTest {
         List<User> sales = activeUsersByRole.get(Role.SALES);
 
         assertThat(engineers).hasSize(127);
-        assertThat(sales).hasSize(102);
+        assertThat(sales).hasSize(101);
         assertThat(traders).hasSize(98);
 
         assertThat(engineers).are(activeUser()).are(userWithRole(Role.ENGINEER));
@@ -94,7 +94,7 @@ public class UserServiceTest {
         assertThat(userService.generateAgeStatistic()).isEqualTo("Number of user : 1000\n" +
                 "Age min : 15\n" +
                 "Age max : 105\n" +
-                "Age average : 60,23");
+                "Age average : 60,33");
     }
 
     private Condition<Map.Entry<String, User>> keyIsLoginOfValue() {
