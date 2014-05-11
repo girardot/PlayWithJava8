@@ -39,7 +39,7 @@ public class UserService {
     }
 
     public String retrieveFormatedUserAddressByLogin(String login) {
-        //TODO: user filter and findFirst. Replace user.address type by Optional
+        //TODO:  Replace user.address type by Optional, user filter and findFirst.
         return users.stream().
                 filter(user -> user.getLogin().equals(login)).
                 findFirst().
