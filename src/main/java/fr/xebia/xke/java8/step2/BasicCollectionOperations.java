@@ -46,7 +46,7 @@ public class BasicCollectionOperations {
     }
 
     public static List<Long> fibonacci(int expectedNumberResult) {
-        //TODO: Unit test for fibonacci(45) is very slow. Optimize with fibonacciValues map and computeIfAbsent
+        //TODO: Unit test for fibonacci(45) is very slow. Optimize fibonacciComputation method with fibonacciValues map and computeIfAbsent
 
         List<Long> result = new ArrayList<>(expectedNumberResult);
 
