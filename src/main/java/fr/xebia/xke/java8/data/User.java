@@ -1,5 +1,7 @@
 package fr.xebia.xke.java8.data;
 
+import fr.xebia.xke.java8.other.CurrentDate;
+
 import java.time.LocalDate;
 import java.util.Optional;
 import java.time.Period;
@@ -126,6 +128,6 @@ public class User {
     }
 
     public int age() {
-        return Period.between(birthday, LocalDate.now()).getYears();
+        return Period.between(birthday, CurrentDate.get()).getYears();
     }
 }

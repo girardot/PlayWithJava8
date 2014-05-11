@@ -2,15 +2,25 @@ package fr.xebia.xke.java8.step3;
 
 import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
+import fr.xebia.xke.java8.other.CurrentDate;
 import org.assertj.core.api.Condition;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({CurrentDate.class})
 public class UserServiceTest {
 
     private UserService userService = new UserService();
@@ -70,7 +80,7 @@ public class UserServiceTest {
         List<User> sales = activeUsersByRole.get(Role.SALES);
 
         assertThat(engineers).hasSize(127);
-        assertThat(sales).hasSize(102);
+        assertThat(sales).hasSize(101);
         assertThat(traders).hasSize(98);
 
         assertThat(engineers).are(activeUser()).are(userWithRole(Role.ENGINEER));
@@ -90,11 +100,14 @@ public class UserServiceTest {
 
     @Test
     public void should_return_users_statistics() {
+        mockStatic(CurrentDate.class);
+        when(CurrentDate.get()).thenReturn(LocalDate.of(2014, 5, 7));
+        Locale.setDefault(Locale.FRANCE);
 
         assertThat(userService.generateAgeStatistic()).isEqualTo("Number of user : 1000\n" +
                 "Age min : 15\n" +
                 "Age max : 105\n" +
-                "Age average : 60,23");
+                "Age average : 60,33");
     }
 
     private Condition<Map.Entry<String, User>> keyIsLoginOfValue() {
