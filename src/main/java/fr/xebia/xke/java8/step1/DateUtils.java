@@ -82,8 +82,8 @@ public class DateUtils {
     }
 
     /**
-     * @param firstDateWithTime  format  yyyy-MM-dd'T'HH:mm:ss.
-     * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss.
+     * @param firstDateWithTime  format  yyyy-MM-dd'T'HH:mm:ss
+     * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss
      * @return
      */
     public static boolean dayAreEquals(Date firstDateWithTime, Date secondDateWithTime) {

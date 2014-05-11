@@ -24,12 +24,11 @@ public class DateUtilsTest {
 
     @Test
     public void should_parse_date_time() {
-        Date date = DateUtils.parseDateTime("27/01/2014 12:05:10");
-
-        assertThat(date).isInSameDayAs("2014-01-27");
-        assertThat(date).isWithinHourOfDay(12);
-        assertThat(date).isWithinMinute(05);
-        assertThat(date).isWithinSecond(10);
+        assertThat(DateUtils.parseDateTime("27/01/2014 12:05:10")).
+                isInSameDayAs("2014-01-27").
+                isWithinHourOfDay(12).
+                isWithinHourOfDay(12).
+                isWithinSecond(10);
     }
 
     @Test
@@ -59,7 +58,7 @@ public class DateUtilsTest {
     @Test
     public void should_add_duration() {
         //TODO:Change parseDateTimeJava7 to parseDateTimeJava8 for switch to localDate
-        Date date = DateUtils.addDuration(parseDateTimeJava7("2014-01-27T12:05:10."), 162);
+        Date date = DateUtils.addDuration(parseDateTimeJava7("2014-01-27T12:05:10"), 162);
 
         assertThat(date).isInSameDayAs("2014-01-27");
         assertThat(date).isWithinHourOfDay(14);
@@ -70,13 +69,13 @@ public class DateUtilsTest {
     @Test
     public void should_return_true_when_days_are_equals() {
         //TODO:Change parseDateTimeJava7 to parseDateTimeJava8 for switch to localDate
-        assertThat(DateUtils.dayAreEquals(parseDateTimeJava7("2014-01-27T12:05:10."), parseDateTimeJava7("2014-01-27T20:05:10."))).isTrue();
-        assertThat(DateUtils.dayAreEquals(parseDateTimeJava7("2014-01-27T12:05:10."), parseDateTimeJava7("2014-01-28T12:05:10."))).isFalse();
+        assertThat(DateUtils.dayAreEquals(parseDateTimeJava7("2014-01-27T12:05:10"), parseDateTimeJava7("2014-01-27T20:05:10"))).isTrue();
+        assertThat(DateUtils.dayAreEquals(parseDateTimeJava7("2014-01-27T12:05:10"), parseDateTimeJava7("2014-01-28T12:05:10"))).isFalse();
     }
 
     @Test
     public void should_convert_to_time_zone() {
-        String date = DateUtils.convertToTimeZone("18/01/2014 12:00:00.", ZoneId.of("Europe/Moscow"), ZoneId.of("America/New_York"));
+        String date = DateUtils.convertToTimeZone("18/01/2014 12:00:00", ZoneId.of("Europe/Moscow"), ZoneId.of("America/New_York"));
 
         assertThat(date).isEqualTo("18/01/2014 03:00:00");
 
@@ -106,7 +105,7 @@ public class DateUtilsTest {
 
     private Date parseDateTimeJava7(String dateTime) {
         try {
-            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.").parse(dateTime);
+            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dateTime);
         } catch (ParseException e) {
             return null;
         }
