@@ -16,7 +16,7 @@ public class DateUtils {
      * @return
      */
     public static Date parseDate(String date) {
-        //TODO: Replace with LocalDate
+        //TODO: Replace with LocalDate and DateTimeFormatter
 
         try {  //SimpleDateFormat not thread safe must create new formater for each request
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -33,7 +33,7 @@ public class DateUtils {
      * @return
      */
     public static Date parseDateTime(String date) {
-        //TODO: Replace with LocalDateTime
+        //TODO: Replace with LocalDateTime and DateTimeFormatter
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             return format.parse(date);
