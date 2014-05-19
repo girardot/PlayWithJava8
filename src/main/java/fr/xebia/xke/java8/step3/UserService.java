@@ -5,6 +5,8 @@ import fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.java8.other.UserParser;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class UserService {
 
@@ -44,7 +46,7 @@ public class UserService {
     }
 
     public String retrieveFormatedUserAddressByLogin(String login) {
-        //TODO:  Replace user.address type by Optional, user filter and findFirst.
+        //TODO:  Replace user.address type by Optional, user filter and findFirst. Then Use flatMap with getAddress and map with formatForEnveloppe method
         for (User user : users) {
             if (user.getLogin().equals(login)) {
                 if (user.getAddress() != null) {
@@ -62,7 +64,7 @@ public class UserService {
      * @return
      */
     public List<User> findAll() {
-        //TODO: replace specific comparator by  Comparator static methods and Collectors
+        //TODO: replace specific comparator by Comparator static methods and collect with Collectors
         List<User> usersOrdered = new ArrayList<>(users.size());
         usersOrdered.addAll(users);
 
@@ -85,7 +87,7 @@ public class UserService {
     }
 
     public Map<Role, List<User>> retrieveActiveUserByRole() {
-        //TODO: Use Collectors.groupingBy
+        //TODO: Use collect with Collectors.groupingBy
         Map<Role, List<User>> result = new HashMap<>();
 
         for (User user : users) {
@@ -104,7 +106,7 @@ public class UserService {
     }
 
     public Map<String, User> retrieveUserwithRoleByLogin(Role role) {
-        //TODO: Use Collectors.toMap
+        //TODO: Use collect with Collectors.toMap and Function.identity() as value mapper
         Map<String, User> result = new HashMap<>();
 
         for (User user : users) {
@@ -117,7 +119,7 @@ public class UserService {
     }
 
     public String generateAgeStatistic() {
-        //TODO: use Collectors.summarizingInt
+        //TODO: use collect with Collectors.summarizingInt
         int count = 0;
         int min = Integer.MAX_VALUE;
         int max = 0;
