@@ -44,7 +44,7 @@ public class DateUtils {
 
 
     public static int age(Date birthday, Date now) {
-        //TODO: Replace with LocalDate and use Period
+        //TODO: Replace with LocalDate and use Duration
         Calendar calBirthday = Calendar.getInstance();
         calBirthday.setTime(birthday);
 
