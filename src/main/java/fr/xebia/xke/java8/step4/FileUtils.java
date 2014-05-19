@@ -19,7 +19,7 @@ import java.util.List;
 public class FileUtils {
 
     public static List<User> loadUsersFromCsv(Path csvPath) {
-        //TODO: Replace By Files.line, use static method reference for the stream.map
+        //TODO: Replace By Files.lines, use static method reference for the skip and stream.map
         try (BufferedReader reader = new BufferedReader(new FileReader(csvPath.toFile()))) {
             String line;
             boolean firstLine = true;

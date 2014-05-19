@@ -5,6 +5,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class NumberUtils {
@@ -25,7 +27,7 @@ public class NumberUtils {
      * @return
      */
     public static int[] generateRandom(int number, @Nullable Long seed) {
-        //TODO:Replace by Random.ints
+        //TODO:Use Random ints method
         int[] randomValues = new int[number];
 
         Random random = getRandom(seed);
@@ -38,7 +40,7 @@ public class NumberUtils {
     }
 
     public static Map<Boolean, List<Integer>> splitEvenAndOddNumber(int[] numbers) {
-        //TODO: Use Collectors.partitioningBy
+        //TODO: Use Collectors.partitioningBy. To transform an array to stream, use Arrays.stream
 
         List<Integer> evenNumber = new ArrayList<>();
         List<Integer> oddNumber = new ArrayList<>();
@@ -59,7 +61,7 @@ public class NumberUtils {
     }
 
     public static List<Long> fibonacci(int expectedNumberResult) {
-        //TODO: replace for by stream generation with IntStream
+        //TODO: replace for by stream generation with IntStream.rangeClosed, mapToLong and mapToObj
 
         List<Long> result = new ArrayList<>(expectedNumberResult);
 
@@ -74,7 +76,7 @@ public class NumberUtils {
      * @return Infinite stream who return each next number of fibonacci sequence
      */
     public static Stream<Long> fibonacciStream() {
-        //TODO: Implemente method, update test for validation
+        //TODO: Implemente method, update test for validation. Use Stream.generate
         throw new NotImplementedException();
     }
 
