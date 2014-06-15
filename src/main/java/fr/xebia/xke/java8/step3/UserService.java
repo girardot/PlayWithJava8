@@ -46,7 +46,7 @@ public class UserService {
     }
 
     public String retrieveFormatedUserAddressByLogin(String login) {
-        //TODO:  Replace user.address type by Optional, user filter and findFirst. Then Use flatMap with getAddress and map with formatForEnveloppe method
+        //TODO:  Replace user.address type by Optional<Address>, user filter and findFirst. Then Use flatMap with getAddress and map with formatForEnveloppe method
         for (User user : users) {
             if (user.getLogin().equals(login)) {
                 if (user.getAddress() != null) {

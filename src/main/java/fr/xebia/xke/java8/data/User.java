@@ -21,6 +21,7 @@ public class User {
 
     private Role role;
 
+    // TODO : change to Optional<Address>, update getter and setter, and address default value must be Optional.empty()
     private Address address;
 
     private LocalDate birthday;
