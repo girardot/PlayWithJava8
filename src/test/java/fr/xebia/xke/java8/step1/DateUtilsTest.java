@@ -18,13 +18,11 @@ public class DateUtilsTest {
 
     @Test
     public void should_parse_date() {
-
         assertThat(DateUtils.parseDate("27/01/2014")).isInSameDayAs("2014-01-27");
     }
 
     @Test
     public void should_parse_date_time() {
-
         assertThat(DateUtils.parseDateTime("27/01/2014 12:05:10")).
                 isInSameDayAs("2014-01-27").
                 isWithinHourOfDay(12).
@@ -48,23 +46,21 @@ public class DateUtilsTest {
     @Test
     public void should_compute_day_with_time() {
         //TODO:Change parseDateJava8 to parseDateJava8 for switch to localDate
-        LocalDateTime dateWithTime = DateUtils.dayDateWithTime(parseDateJava8("2013-07-08"), 15, 12, 3);
-
-        assertThat(dateWithTime).isInSameDayAs("2013-07-08");
-        assertThat(dateWithTime).isWithinHourOfDay(15);
-        assertThat(dateWithTime).isWithinMinute(12);
-        assertThat(dateWithTime).isWithinSecond(3);
+        assertThat(DateUtils.dayDateWithTime(parseDateJava8("2013-07-08"), 15, 12, 3))
+                .isInSameDayAs("2013-07-08")
+                .isWithinHourOfDay(15)
+                .isWithinMinute(12)
+                .isWithinSecond(3);
     }
 
     @Test
     public void should_add_duration() {
         //TODO:Change parseDateTimeJava8 to parseDateTimeJava8 for switch to localDate
-        LocalDateTime date = DateUtils.addDuration(parseDateTimeJava8("2014-01-27T12:05:10"), 162);
-
-        assertThat(date).isInSameDayAs("2014-01-27");
-        assertThat(date).isWithinHourOfDay(14);
-        assertThat(date).isWithinMinute(47);
-        assertThat(date).isWithinSecond(10);
+        assertThat(DateUtils.addDuration(parseDateTimeJava8("2014-01-27T12:05:10"), 162))
+                .isInSameDayAs("2014-01-27")
+                .isWithinHourOfDay(14)
+                .isWithinMinute(47)
+                .isWithinSecond(10);
     }
 
     @Test
