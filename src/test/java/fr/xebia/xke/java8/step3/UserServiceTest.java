@@ -73,6 +73,9 @@ public class UserServiceTest {
 
     @Test
     public void should_return_active_users_by_role() {
+        mockStatic(CurrentDate.class);
+        when(CurrentDate.get()).thenReturn(LocalDate.of(2014, 5, 7));
+
         Map<Role, List<User>> activeUsersByRole = userService.retrieveActiveUserByRole();
 
         List<User> engineers = activeUsersByRole.get(Role.ENGINEER);

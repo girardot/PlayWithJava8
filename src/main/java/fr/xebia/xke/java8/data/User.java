@@ -32,7 +32,7 @@ public class User {
     }
 
     public boolean isExpired() {
-        return getExpireDate() != null && getExpireDate().isBefore(LocalDate.now());
+        return getExpireDate() != null && getExpireDate().isBefore(CurrentDate.get());
     }
 
     public User withLogin(String login) {
