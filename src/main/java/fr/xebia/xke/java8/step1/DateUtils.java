@@ -42,7 +42,6 @@ public class DateUtils {
         }
     }
 
-
     public static int age(Date birthday, Date now) {
         //TODO: Replace with LocalDate and use Period
         Calendar calBirthday = Calendar.getInstance();
@@ -81,11 +80,6 @@ public class DateUtils {
         return calendarDate.getTime();
     }
 
-    /**
-     * @param firstDateWithTime  format  yyyy-MM-dd'T'HH:mm:ss
-     * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss
-     * @return
-     */
     public static boolean dayAreEquals(Date firstDateWithTime, Date secondDateWithTime) {
         //TODO: Replace by LocalDateTime
         Calendar calendarDay1 = Calendar.getInstance();
