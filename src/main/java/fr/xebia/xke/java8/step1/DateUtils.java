@@ -31,7 +31,6 @@ public class DateUtils {
         return LocalDateTime.parse(date, DATE_TIME_PARSER);
     }
 
-
     public static int age(LocalDate birthday, LocalDate now) {
         //TODO: Replace with LocalDate and use Period
         return Period.between(birthday, now).getYears();
@@ -47,12 +46,6 @@ public class DateUtils {
         return date.plusMinutes(durationInMinute);
     }
 
-    /**
-     * @param firstDateWithTime  format  yyyy-MM-dd'T'HH:mm:ss
-     * @param firstDateWithTime  format  yyyy-MM-dd'T'HH:mm:ss
-     * @param secondDateWithTime format  yyyy-MM-dd'T'HH:mm:ss
-     * @return
-     */
     public static boolean dayAreEquals(LocalDateTime firstDateWithTime, LocalDateTime secondDateWithTime) {
         //TODO: Replace by LocalDateTime
 
