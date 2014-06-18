@@ -1,10 +1,10 @@
 package fr.xebia.xke.java8.step4;
 
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -24,60 +24,25 @@ public class NumberUtils {
      *
      * @param number
      * @param seed
-     * @return
+     * @return int[]
      */
     public static int[] generateRandom(int number, @Nullable Long seed) {
-        //TODO:Use Random ints method
-        int[] randomValues = new int[number];
-
-        Random random = getRandom(seed);
-
-        for (int i = 0; i < number; i++) {
-            randomValues[i] = random.nextInt(number * 10);
-        }
-
-        return randomValues;
+        return getRandom(seed).ints(number, 0, number * 10).toArray();
     }
 
     public static Map<Boolean, List<Integer>> splitEvenAndOddNumber(int[] numbers) {
-        //TODO: Use Collectors.partitioningBy. To transform an array to stream, use Arrays.stream
-
-        List<Integer> evenNumber = new ArrayList<>();
-        List<Integer> oddNumber = new ArrayList<>();
-
-        for (int number : numbers) {
-            if (number % 2 == 0) {
-                evenNumber.add(number);
-            } else {
-                oddNumber.add(number);
-            }
-        }
-
-        Map<Boolean, List<Integer>> result = new HashMap<>();
-        result.put(Boolean.TRUE, evenNumber);
-        result.put(Boolean.FALSE, oddNumber);
-
-        return result;
+        return Arrays.stream(numbers).mapToObj(Integer::valueOf).collect(Collectors.partitioningBy(i -> (i % 2 == 0)));
     }
 
     public static List<Long> fibonacci(int expectedNumberResult) {
-        //TODO: replace for by stream generation with IntStream.rangeClosed, mapToLong and mapToObj
-
-        List<Long> result = new ArrayList<>(expectedNumberResult);
-
-        for (int i = 1; i <= expectedNumberResult; i++) {
-
-            result.add(fibonacciComputation(i));
-        }
-        return result;
+        return IntStream.rangeClosed(1, expectedNumberResult).mapToObj(Integer::valueOf).map(NumberUtils::fibonacciComputation).collect(Collectors.toList());
     }
 
     /**
      * @return Infinite stream who return each next number of fibonacci sequence
      */
     public static Stream<Long> fibonacciStream() {
-        //TODO: Implemente method, update test for validation. Use Stream.generate
-        throw new NotImplementedException();
+        return Stream.generate(new fibonacciGenerator());
     }
 
     private static long fibonacciComputation(int number) {
@@ -91,4 +56,15 @@ public class NumberUtils {
             return new Random(seed);
         }
     }
+
+    public static class fibonacciGenerator implements Supplier<Long> {
+
+        private AtomicInteger number = new AtomicInteger(1);
+
+        @Override
+        public Long get() {
+            return fibonacciComputation(number.getAndIncrement());
+        }
+    }
+
 }
