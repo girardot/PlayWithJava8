@@ -36,7 +36,6 @@ public class UserServiceTest {
     public void should_return_true_if_login_exist() {
         assertThat(userService.isLoginAlreadyExist("christianemoreau")).isTrue();
         assertThat(userService.isLoginAlreadyExist("ivanbeauvais")).isFalse();
-
     }
 
     @Test

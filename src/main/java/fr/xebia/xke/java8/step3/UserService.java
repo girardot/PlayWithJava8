@@ -1,5 +1,6 @@
 package fr.xebia.xke.java8.step3;
 
+import fr.xebia.xke.java8.data.Address;
 import fr.xebia.xke.java8.data.Role;
 import fr.xebia.xke.java8.data.User;
 import fr.xebia.xke.java8.other.UserParser;
@@ -23,121 +24,38 @@ public class UserService {
     }
 
     public long countUserWithRole(Role role) {
-        //TODO: use filter and count
-        long count = 0;
-        for (User user : users) {
-            if (user.getRole() == role) {
-                count++;
-            }
-        }
-
-        return count;
+        return users.stream().filter(u -> u.getRole() == role).count();
     }
 
     public boolean isLoginAlreadyExist(String login) {
-        //TODO: use anyMatch
-        for (User user : users) {
-            if (user.getLogin().equals(login)) {
-                return true;
-            }
-        }
-
-        return false;
+        return users.stream().anyMatch(u -> u.getLogin().equals(login));
     }
 
     public String retrieveFormatedUserAddressByLogin(String login) {
-        //TODO:  Replace user.address type by Optional<Address>, user filter and findFirst. Then Use flatMap with getAddress and map with formatForEnveloppe method
-        for (User user : users) {
-            if (user.getLogin().equals(login)) {
-                if (user.getAddress() != null) {
-                    return user.getAddress().formatForEnveloppe();
-                }
-            }
-        }
-
-        return DEFAULT_FORMATED_ADDRESS;
+        Optional<String> stringOptional = users.stream().filter(u -> u.getLogin().equals(login)).filter(u -> u.getAddress() != null).findFirst().flatMap(User::getAddress).map(Address::formatForEnveloppe);
+        return stringOptional.orElse(DEFAULT_FORMATED_ADDRESS);
     }
 
     /**
      * Return a copy of users list ordered by lastname and firstname
      *
-     * @return
+     * @return List<User>
      */
     public List<User> findAll() {
-        //TODO: replace specific comparator by Comparator static methods and collect with Collectors
-        List<User> usersOrdered = new ArrayList<>(users.size());
-        usersOrdered.addAll(users);
-
-        Collections.sort(usersOrdered, new UserComparator());
-
-        return usersOrdered;
-    }
-
-    private static class UserComparator implements Comparator<User> {
-
-        public int compare(User userLeft, User userRight) {
-            int lastNameComparaison = userLeft.getLastname().compareTo(userRight.getLastname());
-            if (lastNameComparaison == 0) {
-                return userLeft.getFirstname().compareTo(userRight.getFirstname());
-            } else {
-
-                return lastNameComparaison;
-            }
-        }
+        return users.stream().sorted(Comparator.comparing(User::getLastname).thenComparing(User::getFirstname)).collect(Collectors.toList());
     }
 
     public Map<Role, List<User>> retrieveActiveUserByRole() {
-        //TODO: Use collect with Collectors.groupingBy
-        Map<Role, List<User>> result = new HashMap<>();
-
-        for (User user : users) {
-            if (!user.isExpired()) {
-
-                List<User> currentRoleUsers = result.get(user.getRole());
-                if (currentRoleUsers == null) {
-                    currentRoleUsers = new ArrayList<>();
-                    result.put(user.getRole(), currentRoleUsers);
-                }
-                currentRoleUsers.add(user);
-            }
-        }
-
-        return result;
+        return users.stream().filter(u -> !u.isExpired()).collect(Collectors.groupingBy(User::getRole));
     }
 
     public Map<String, User> retrieveUserwithRoleByLogin(Role role) {
-        //TODO: Use collect with Collectors.toMap and Function.identity() as value mapper
-        Map<String, User> result = new HashMap<>();
-
-        for (User user : users) {
-            if (user.getRole() == role) {
-                result.put(user.getLogin(), user);
-            }
-        }
-
-        return result;
+        return users.stream().filter(u -> u.getRole() == role).collect(Collectors.toMap(User::getLogin, Function.identity()));
     }
 
     public String generateAgeStatistic() {
-        //TODO: use collect with Collectors.summarizingInt
-        int count = 0;
-        int min = Integer.MAX_VALUE;
-        int max = 0;
-        int sum = 0;
-
-        for (User user : users) {
-            int age = user.age();
-            if (age > max) {
-                max = age;
-            }
-            if (age < min) {
-                min = age;
-            }
-            count++;
-            sum += age;
-        }
-        double average = (double) sum / count;
-
-        return String.format("Number of user : %d\nAge min : %d\nAge max : %d\nAge average : %.2f", count, min, max, average);
+        IntSummaryStatistics intSummaryStatistics = users.stream().collect(Collectors.summarizingInt(User::age));
+        return String.format("Number of user : %d\nAge min : %d\nAge max : %d\nAge average : %.2f", intSummaryStatistics.getCount(), intSummaryStatistics.getMin(), intSummaryStatistics.getMax(), intSummaryStatistics.getAverage());
     }
+
 }
